@@ -3,10 +3,10 @@
 ## Platform
 web
 ## Stack
-Assumption for this session: plain HTML, CSS, and JavaScript, matching the requested simple project structure. Optional framework question pending.
+Plain HTML, CSS, and JavaScript, with no build step.
 ## Product Purpose
-A simple webpage starter named API Blitz, stored in Downloads, connected to GitHub and hosted on Vercel.
+A simple webpage starter named API Blitz. The user accepts a simple plain page. The intended workflow is to keep the project in GitHub and publish it with Vercel.
 ## Capabilities and Constraints
-Assumption: local sample API demo provides useful starter interaction. No external API keys or backend needed. Exact future product functionality is undecided.
+A local playground lets visitors choose one of three sample endpoints, submit the form, view JSON, and copy it. Responses are static browser-side samples with a short simulated delay. No external API keys or backend are needed. The page includes starter guidance and anchor navigation. Future API functionality remains open.
 ## Brand Commitments
 Name: API Blitz.
