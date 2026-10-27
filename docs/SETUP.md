@@ -14,7 +14,7 @@ Use Node.js 22 or newer. Run `npm ci`. `.env.local` is ignored by Git. A blank l
 | CLOUDINARY_API_KEY | Cloudinary API keys | Used by signed browser uploads |
 | CLOUDINARY_API_SECRET | Cloudinary API keys | Server secret |
 | CLOUDINARY_UPLOAD_PRESET | Cloudinary signed upload preset | Server configuration |
-| NEXT_PUBLIC_GOOGLE_MAPS_KEY | Google Cloud Maps JavaScript API | Public; restrict HTTP referrers |
+| NEXT_PUBLIC_GEOAPIFY_KEY | Geoapify Places API & styled map tiles | Public; optional (OpenStreetMap fallback) |
 | GEMINI_API_KEY | Google AI Studio | Server secret; optional |
 | GEMINI_MODEL | An available Google AI model | Server configuration; default gemini-2.5-flash |
 | NEXT_PUBLIC_SITE_URL | Your deployed origin, no trailing slash | Public |
@@ -50,9 +50,9 @@ Use lowercase and replace the example. The user must sign in through Google and 
 
 Cloudinary receives the original upload to perform image processing. Generated handles hide Google identity; they do not make the underlying service provider or project owner untrusted.
 
-## 4. Optional Google Maps and Gemini
+## 4. Optional Geoapify and Gemini
 
-Google Maps: enable billing/Maps JavaScript API, restrict the browser key to your production and localhost referrers. Without a key the app uses Leaflet/OpenStreetMap. The report form also accepts manual coordinates. Google Maps appears only on the issue map and location picker.
+Geoapify: create a free project at https://myprojects.geoapify.com/ (free 3,000 requests/day, no credit card required) and copy your API key. It provides styled base map tiles (`osm-bright`) via Leaflet and automatic reverse geocoding/places lookup in the report location picker. Without a key the app automatically uses Leaflet with standard OpenStreetMap tiles. Manual coordinate inputs and GPS location remain supported.
 
 Gemini: add the API key and a model enabled for your project. Photo analysis suggests category, severity and description; the user must review them. Comments are checked for harmful content/private details. If Gemini fails or is disabled, comments are allowed but flagged for private review; obvious email/phone patterns are blocked locally. No blocked comment body is stored. Analysis is opt-in; clicking it sends the face-blurred photo to Google AI. No keys are sent to the browser.
 

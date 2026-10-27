@@ -6,7 +6,7 @@ import { hasBackend } from '@/lib/env';
 export class ApiError extends Error { constructor(public status: number, message: string) { super(message); } }
 export function assertSameOrigin(request: Request) {
   const origin = request.headers.get('origin');
-  const expected = process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
+  const expected = process.env.NEXT_PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || process.env.SITE_URL || new URL(request.url).origin;
   if (!origin || origin !== new URL(expected).origin) throw new ApiError(403, 'This action must be sent from this site.');
 }
 export async function requireViewer(request: Request, admin = false) {

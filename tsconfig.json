@@ -28,8 +28,7 @@
       ]
     },
     "types": [
-      "node",
-      "google.maps"
+      "node"
     ]
   },
   "include": [

@@ -4,7 +4,16 @@ const required = [
   'AVATAR_HMAC_SECRET','NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME','CLOUDINARY_API_KEY',
   'CLOUDINARY_API_SECRET','CLOUDINARY_UPLOAD_PRESET','NEXT_PUBLIC_SITE_URL',
 ] as const;
-const optional = ['NEXT_PUBLIC_GOOGLE_MAPS_KEY','GEMINI_API_KEY'] as const;
+const optional = ['NEXT_PUBLIC_GEOAPIFY_KEY','GEMINI_API_KEY'] as const;
+
+const fallbacks: Record<string, string[]> = {
+  NEXT_PUBLIC_SUPABASE_URL: ['PUBLIC_SUPABASE_URL', 'SUPABASE_URL'],
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: ['PUBLIC_SUPABASE_ANON_KEY', 'SUPABASE_ANON_KEY'],
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ['PUBLIC_CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_CLOUD_NAME'],
+  NEXT_PUBLIC_SITE_URL: ['PUBLIC_SITE_URL', 'SITE_URL'],
+  NEXT_PUBLIC_GEOAPIFY_KEY: ['PUBLIC_GEOAPIFY_KEY', 'GEOAPIFY_KEY'],
+};
+
 function validUrl(value: string) {
   try { const url=new URL(value); return url.protocol==='https:' || (url.protocol==='http:' && ['localhost','127.0.0.1','[::1]'].includes(url.hostname)); }
   catch { return false; }
@@ -12,7 +21,7 @@ function validUrl(value: string) {
 export function checkConfiguration(env: Record<string,string | undefined>): ConfigCheck[] {
   return [...required,...optional].map(name => {
     const isRequired = (required as readonly string[]).includes(name);
-    const value=env[name]?.trim() || '';
+    const value = env[name]?.trim() || (fallbacks[name] || []).map(k => env[k]?.trim()).find(Boolean) || '';
     const check: ConfigCheck={name,required:isRequired,status:value?'ready':'missing',message:value?'Configured':isRequired?'Add this value.':'Optional; the manual/fallback path remains available.'};
     if (!value) return check;
     let error='';
@@ -22,7 +31,10 @@ export function checkConfiguration(env: Record<string,string | undefined>): Conf
       const url=new URL(value);
       if (url.pathname!=='/' || url.search || url.hash || url.username || url.password) error='Use the site origin only, without a path, query or embedded credentials.';
     } else if (name==='AVATAR_HMAC_SECRET' && value.length<32) error='Use a stable, randomly generated secret of at least 32 characters.';
-    else if (name==='SUPABASE_SERVICE_ROLE_KEY' && value===env.NEXT_PUBLIC_SUPABASE_ANON_KEY) error='The server service-role key must differ from the public anon key.';
+    else if (name==='SUPABASE_SERVICE_ROLE_KEY') {
+      const anonKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY || env.PUBLIC_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
+      if (anonKey && value === anonKey) error='The server service-role key must differ from the public anon key.';
+    }
     if (error) {check.status='invalid';check.message=error;}
     return check;
   });
