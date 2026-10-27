@@ -66,3 +66,79 @@ Reply strictly in JSON format: {"category": "Pothole", "severity": "medium", "de
   const description=typeof raw?.description==='string'?raw.description.trim().slice(0,2000):'';
   return analysisSchema.parse({category,severity,description});
 }
+
+export async function verifyResolutionEvidence(
+  beforePublicId: string,
+  afterPublicId: string,
+  category: string,
+  signal?: AbortSignal
+): Promise<{ matches: boolean; reason: string }> {
+  const { validateEvidencePair, evaluateResolutionVerdict } = await import('@/lib/evidence-matcher');
+  const pairCheck = validateEvidencePair(beforePublicId, afterPublicId);
+  if (!pairCheck.valid) {
+    return { matches: false, reason: pairCheck.reason || 'Invalid evidence pair.' };
+  }
+
+  if (!process.env.GEMINI_API_KEY) {
+    return { matches: true, reason: 'AI resolution verification skipped (Gemini unconfigured).' };
+  }
+
+  try {
+    const [beforeRes, afterRes] = await Promise.all([
+      fetch(cloudinaryUrl(beforePublicId, 800), {
+        signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(10000)]) : AbortSignal.timeout(10000),
+        cache: 'no-store',
+      }),
+      fetch(cloudinaryUrl(afterPublicId, 800), {
+        signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(10000)]) : AbortSignal.timeout(10000),
+        cache: 'no-store',
+      }),
+    ]);
+
+    if (!beforeRes.ok || !afterRes.ok) {
+      return { matches: true, reason: 'Photos could not be read from storage for comparison.' };
+    }
+
+    const [beforeBuf, afterBuf] = await Promise.all([
+      beforeRes.arrayBuffer().then(b => Buffer.from(b)),
+      afterRes.arrayBuffer().then(b => Buffer.from(b)),
+    ]);
+
+    const beforeMime = beforeRes.headers.get('content-type')?.split(';')[0] || 'image/jpeg';
+    const afterMime = afterRes.headers.get('content-type')?.split(';')[0] || 'image/jpeg';
+
+    const raw = await generate([
+      {
+        text: `You are an automated municipal resolution auditor.
+A citizen reported a civic issue under category "${category}".
+Image 1 is the citizen's original photo showing the problem.
+Image 2 is the authority's resolution photo claiming to prove the issue is fixed or resolved.
+
+Carefully compare Image 1 and Image 2:
+1. Does Image 2 plausibly represent the same physical location or a genuine repair/cleanup of the issue shown in Image 1?
+2. REJECT if Image 2 is completely unrelated (such as a photo of an indoor room, pet, car, random object, totally different street/landscape, or a fake/blank image).
+3. Check for signs of legitimate resolution (e.g. filled asphalt, cleared garbage bags, re-lit street, repaired pipe, unclogged drain).
+
+Reply strictly in JSON:
+{"matches": boolean, "confidence": "high" | "medium" | "low", "reason": "concise 1-2 sentence explanation"}`
+      },
+      { inlineData: { mimeType: beforeMime, data: beforeBuf.toString('base64') } },
+      { inlineData: { mimeType: afterMime, data: afterBuf.toString('base64') } },
+    ], signal);
+
+    const verdict = z.object({
+      matches: z.boolean(),
+      confidence: z.enum(['high', 'medium', 'low']).optional(),
+      reason: z.string().max(500).optional(),
+    }).safeParse(raw);
+
+    if (verdict.success) {
+      const decision = evaluateResolutionVerdict(verdict.data);
+      return { matches: decision.accepted, reason: decision.message };
+    }
+
+    return { matches: true, reason: 'Verification response format unparseable; proceeding.' };
+  } catch {
+    return { matches: true, reason: 'Automated match verification unavailable; manual review allowed.' };
+  }
+}

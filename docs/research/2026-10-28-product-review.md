@@ -48,3 +48,13 @@ The resulting intake demonstration is one continuous workflow: labeled category 
 
 ## Category-preview refinement
 The user requested category-related images and refresh. Category previews now use locally hosted Wikimedia Commons photographs (two per category), with source/author/license attribution at `/photo-credits`. Picsum does not provide semantic category search, so it is not claimed as the source of those category photographs; its existing generic demo/loading uses remain. Refresh never changes category or substitutes sample imagery for evidence. Automatic AI failures expose an explicit retry action while preserving the photo and location.
+
+## Resolution evidence matching and rejection
+The user requested resolution verification so that if an authority uploads an after-photo that does not match the citizen's original issue photo, the resolution is rejected.
+1. **Multi-image comparison:** When marking an issue resolved with an after-photo, `/api/admin/verify-resolution` and `/api/admin/update` compare the citizen's before-photo with the authority's after-photo using Gemini multimodal understanding.
+2. **Rejection criteria:** The resolution is rejected if:
+   - The after-photo is identical to the before-photo (re-uploading the unresolved problem).
+   - The after-photo depicts an unrelated scene (e.g. indoor room, pet, car, different street, or blank image).
+   - High or medium confidence mismatch is reported by the audit model.
+3. **Real-time feedback & server enforcement:** The authority workspace (`AdminActions`) audits the proof as soon as it is selected, showing a verified badge or rejection alert and disabling the save button. Server-side validation on `/api/admin/update` blocks bypass attempts.
+
