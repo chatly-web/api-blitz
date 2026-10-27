@@ -58,3 +58,24 @@ test('resolution AI evaluation allows manual review for low confidence uncertain
   assert.equal(uncertain.accepted, true);
   assert.match(uncertain.message, /Extreme angle difference/);
 });
+
+test('resolution AI evaluation rejects photo when location matches but problem is still unsolved', () => {
+  const unsolvedVerdict = evaluateResolutionVerdict({
+    matchesLocation: true,
+    isResolved: false,
+    confidence: 'high',
+    reason: 'The garbage bags and litter are still accumulated at the curbside; no cleanup has occurred.',
+  });
+  assert.equal(unsolvedVerdict.accepted, false);
+  assert.match(unsolvedVerdict.message, /garbage bags and litter are still accumulated/);
+
+  const potholeStillOpenVerdict = evaluateResolutionVerdict({
+    matchesLocation: true,
+    isResolved: false,
+    confidence: 'medium',
+    reason: 'The pothole crater remains open and broken; asphalt has not been laid.',
+  });
+  assert.equal(potholeStillOpenVerdict.accepted, false);
+  assert.match(potholeStillOpenVerdict.message, /pothole crater remains open/);
+});
+

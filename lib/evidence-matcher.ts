@@ -4,7 +4,9 @@
  */
 
 export interface ResolutionAiVerdict {
-  matches: boolean;
+  matchesLocation?: boolean;
+  matches?: boolean;
+  isResolved?: boolean;
   confidence?: 'high' | 'medium' | 'low';
   reason?: string;
 }
@@ -40,26 +42,42 @@ export function validateEvidencePair(beforePublicId: string | null | undefined, 
 
 /**
  * Interprets an AI multimodal match evaluation between before and after photos.
- * High and medium confidence mismatches are rejected.
+ * Rejects if:
+ * 1. The photo is an unrelated location or object (matchesLocation === false).
+ * 2. The photo is the same location, but the problem is STILL UNSOLVED (isResolved === false).
  * Low confidence mismatches or uncertainties fall back to manual review with a cautionary note.
  */
 export function evaluateResolutionVerdict(verdict: ResolutionAiVerdict): ResolutionDecision {
-  if (verdict.matches === false && verdict.confidence !== 'low') {
+  const matchesLoc = verdict.matchesLocation !== undefined ? verdict.matchesLocation : verdict.matches !== false;
+  const isResolved = verdict.isResolved !== undefined ? verdict.isResolved : verdict.matches !== false;
+
+  // Case 1: Unrelated scene / wrong location
+  if (!matchesLoc && verdict.confidence !== 'low') {
     return {
       accepted: false,
-      message: verdict.reason?.trim() || 'The uploaded resolution photo does not appear to match the reported issue location or repair.'
+      message: verdict.reason?.trim() || 'The uploaded resolution photo does not appear to match the reported issue location.'
     };
   }
 
-  if (verdict.matches === false && verdict.confidence === 'low') {
+  // Case 2: Same location, but problem is STILL UNSOLVED / unrepaired
+  if (!isResolved && verdict.confidence !== 'low') {
+    return {
+      accepted: false,
+      message: verdict.reason?.trim() || 'The civic issue is not solved. The uploaded photo still shows the problem unrepaired or uncleaned.'
+    };
+  }
+
+  // Case 3: Low confidence uncertainty
+  if ((!matchesLoc || !isResolved) && verdict.confidence === 'low') {
     return {
       accepted: true,
-      message: verdict.reason?.trim() || 'Photo match uncertain; accepted with citizen verification flag.'
+      message: verdict.reason?.trim() || 'Resolution proof accepted pending community verification.'
     };
   }
 
+  // Case 4: Verified match and verified resolved
   return {
     accepted: true,
-    message: verdict.reason?.trim() || 'Resolution evidence verified: matches original report.'
+    message: verdict.reason?.trim() || 'Resolution evidence verified: issue has been repaired/cleared.'
   };
 }

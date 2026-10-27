@@ -111,23 +111,41 @@ export async function verifyResolutionEvidence(
       {
         text: `You are an automated municipal resolution auditor.
 A citizen reported a civic issue under category "${category}".
-Image 1 is the citizen's original photo showing the problem.
+Image 1 is the citizen's original photo showing the problem (e.g. pothole, garbage, dark streetlight, water leak, clogged drain).
 Image 2 is the authority's resolution photo claiming to prove the issue is fixed or resolved.
 
-Carefully compare Image 1 and Image 2:
-1. Does Image 2 plausibly represent the same physical location or a genuine repair/cleanup of the issue shown in Image 1?
-2. REJECT if Image 2 is completely unrelated (such as a photo of an indoor room, pet, car, random object, totally different street/landscape, or a fake/blank image).
-3. Check for signs of legitimate resolution (e.g. filled asphalt, cleared garbage bags, re-lit street, repaired pipe, unclogged drain).
+Carefully evaluate Image 1 and Image 2 on TWO mandatory criteria:
 
-Reply strictly in JSON:
-{"matches": boolean, "confidence": "high" | "medium" | "low", "reason": "concise 1-2 sentence explanation"}`
+1. LOCATION/CONTEXT MATCH (matchesLocation):
+   - Does Image 2 depict the same location, street, fixture, or context as Image 1?
+   - REJECT (matchesLocation = false) if Image 2 is an unrelated scene, pet, car, random indoor room, generic object, totally different street/landscape, or fake/blank image.
+
+2. PROBLEM RESOLVED (isResolved):
+   - In Image 2, is the reported civic problem ACTUALLY SOLVED / REPAIRED / CLEANED UP?
+   - Garbage: Has the trash/litter been completely cleared away? (If garbage or trash is still sitting there, set isResolved = false)
+   - Pothole: Has the asphalt been filled, repaved, or repaired? (If the crater/hole is still open and broken, set isResolved = false)
+   - Streetlight: Has the light fixture been repaired, replaced, or restored? (If still broken/dark, set isResolved = false)
+   - Water leak: Has the pipe been repaired and water dried/drained? (If water is still leaking or pooling, set isResolved = false)
+   - Drainage: Has the drain/grate been cleared of blockage? (If still clogged with debris, set isResolved = false)
+
+CRITICAL RULE: If the authority uploads an image of the same location but the problem is STILL UNSOLVED, you MUST set isResolved = false.
+
+Reply strictly in JSON format:
+{
+  "matchesLocation": boolean,
+  "isResolved": boolean,
+  "confidence": "high" | "medium" | "low",
+  "reason": "Clear 1-2 sentence explanation of whether the location matches and whether the issue is actually resolved or still unsolved."
+}`
       },
       { inlineData: { mimeType: beforeMime, data: beforeBuf.toString('base64') } },
       { inlineData: { mimeType: afterMime, data: afterBuf.toString('base64') } },
     ], signal);
 
     const verdict = z.object({
-      matches: z.boolean(),
+      matchesLocation: z.boolean().optional(),
+      matches: z.boolean().optional(),
+      isResolved: z.boolean().optional(),
       confidence: z.enum(['high', 'medium', 'low']).optional(),
       reason: z.string().max(500).optional(),
     }).safeParse(raw);
