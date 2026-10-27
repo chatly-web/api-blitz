@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="API Blitz — a simple starting point for your next API project.">
+  <meta name="theme-color" content="#f4f2e9">
+  <title>API Blitz — Build something that connects.</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="shell header">
+    <a class="brand" href="./" aria-label="API Blitz home"><svg viewBox="0 0 28 32" aria-hidden="true"><path d="M16 2 3 18h10l-1 12L26 12H16z"/></svg>API BLITZ<span class="brand-dot">.</span></a>
+    <nav aria-label="Main navigation"><a href="#playground">Playground</a><a href="#start">Get started <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="shell intro">
+      <div class="intro-copy"><h1>Big ideas.<br>One simple<br><em>starting point.</em></h1><p>Your next API project starts here. A little structure, a working demo, and plenty of room to make it your own.</p><a class="primary" href="#playground">Try the playground <span aria-hidden="true">→</span></a></div>
+      <div class="playground" id="playground">
+        <div class="panel-heading"><h2>Request playground</h2><span class="sample">Local demo</span></div>
+        <p class="panel-description">Choose a sample endpoint. See what comes back.</p>
+        <form id="request-form"><label for="endpoint">Endpoint</label><div class="request-line"><span class="method">GET</span><select id="endpoint"><option value="hello">/api/hello</option><option value="project">/api/project</option><option value="ideas">/api/ideas</option></select><button type="submit" id="send">Send <span aria-hidden="true">↗</span></button></div></form>
+        <div class="response-heading"><span>RESPONSE</span><span id="status" role="status" aria-live="polite">Ready to send</span></div>
+        <pre id="response" tabindex="0" aria-label="JSON response"><code>{
+  "message": "Hello, builder.",
+  "next_step": "Send your first request."
+}</code></pre>
+        <div class="panel-footer"><span>No keys. No setup. Just a sample.</span><button type="button" id="copy">Copy JSON</button></div>
+      </div>
+    </section>
+    <section class="shell start" id="start"><div><h2>A small foundation.<br>An open road.</h2><p>Start with the essentials, then build your own thing.</p></div><ol class="steps"><li><div><h3>Make it yours</h3><p>Edit the page, add your content, and connect a real API when you’re ready.</p></div></li><li><div><h3>Keep it in GitHub</h3><p>Track changes in your repository as your project grows.</p></div></li><li><div><h3>Ship with Vercel</h3><p>Import your repository to publish the site and deploy future updates.</p></div></li></ol></section>
+  </main>
+  <footer class="shell footer"><span>API BLITZ</span><span>Built for what comes next.</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>
