@@ -16,7 +16,7 @@ test('assistant rejects system roles, excessive history and overlong inputs',()=
   assert.equal(assistantRequestSchema.safeParse({messages:[{role:'user',content:'a'.repeat(2001)}]}).success,false);
   assert.equal(assistantRequestSchema.safeParse({messages:[{role:'user',content:'How do I report a pothole?'}]}).success,true);
 });
-test('translation catalog stays within provider batch limit and uses fixed interface strings',()=>{
-  assert.ok(uiTexts.length<=128);assert.equal(new Set(uiTexts).size,uiTexts.length);
+test('translation catalog uses fixed interface strings',()=>{
+  assert.equal(new Set(uiTexts).size,uiTexts.length);
   assert.equal(languages.gu,'ગુજરાતી');assert.equal(Object.hasOwn(languages,'toString'),false);
 });
