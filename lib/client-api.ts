@@ -1,5 +1,5 @@
-export async function postJson<T = Record<string, unknown>>(url: string, body: unknown, method = 'POST'): Promise<T> {
-  const response = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.timeout(30000) });
+export async function postJson<T = Record<string, unknown>>(url: string, body: unknown, method = 'POST', requestSignal?: AbortSignal): Promise<T> {
+  const response = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: requestSignal ? AbortSignal.any([requestSignal,AbortSignal.timeout(30000)]) : AbortSignal.timeout(30000) });
   let payload: unknown;
   try { payload = await response.json(); }
   catch { throw new Error('The server response could not be read. Please try again.'); }

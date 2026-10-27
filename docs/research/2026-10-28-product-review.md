@@ -36,3 +36,12 @@ No architecture replacement, Neon, paid translation, automatic authority decisio
 5. Return to the citizen view: show actual history and outcomes changing from real data.
 
 Keep test/demo records separate from real reports; never present sample counts as city-wide impact. The installed API integrations and deterministic fallback paths are more credible than disconnected API decorations.
+
+## Organizer criteria supplied by the user
+
+- API Integration Depth: 30% — effective, creative integration in one workflow.
+- Technical Execution: 25% — clean code, errors, responsive UI, modularity and repository hygiene.
+- Originality & Utility: 25% — novelty and practical usefulness.
+- Demo & Presentation: 20% — video, UX and pitch clarity.
+
+The resulting intake demonstration is one continuous workflow: labeled Picsum preview → Cloudinary upload → automatic photo suggestions and GPS/address filling → citizen review with DiceBear identity → explicit submission → authority resolution evidence and recorded milestones. Do not claim the placeholder establishes a real issue, AI verifies factual truth, or GPS identifies the photographed location. Explain each integration’s actual role. The user explicitly retains Supabase and excludes Neon.

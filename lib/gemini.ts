@@ -3,14 +3,14 @@ import { z } from 'zod';
 import { categories, type Category } from '@/lib/types';
 import { cloudinaryUrl } from '@/lib/cloudinary';
 const moderationSchema = z.object({ blocked: z.boolean(), reason: z.string().max(300) });
-const analysisSchema = z.object({ category: z.enum(categories), severity: z.enum(['low','medium','high']), description: z.string().max(2000) });
-async function generate(parts: unknown[]) {
+const analysisSchema = z.object({ category: z.enum(categories), severity: z.enum(['low','medium','high']), description: z.string().trim().min(10).max(2000) });
+async function generate(parts: unknown[],signal?:AbortSignal) {
   if (!process.env.GEMINI_API_KEY) throw new Error('Gemini is not configured');
   const model = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
   const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': process.env.GEMINI_API_KEY },
     body: JSON.stringify({ contents: [{ role: 'user', parts }], generationConfig: { responseMimeType: 'application/json', temperature: 0.1 } }),
-    signal: AbortSignal.timeout(12000), cache: 'no-store',
+    signal: signal?AbortSignal.any([signal,AbortSignal.timeout(12000)]):AbortSignal.timeout(12000), cache: 'no-store',
   });
   if (!response.ok) throw new Error('Analysis unavailable');
   const payload = await response.json();
@@ -24,8 +24,8 @@ export async function moderateComment(body: string): Promise<{ blocked: boolean;
     return { ...result, reason: result.blocked ? 'This comment may contain harmful language or personal information. Please revise it.' : '', reviewRequired: false };
   } catch { return { blocked: false, reason: '', reviewRequired: true }; }
 }
-export async function analyzePhoto(publicId: string): Promise<{ category: Category; severity: 'low' | 'medium' | 'high'; description: string }> {
-  const response = await fetch(cloudinaryUrl(publicId, 1000), { signal: AbortSignal.timeout(10000), cache: 'no-store' });
+export async function analyzePhoto(publicId: string,signal?:AbortSignal): Promise<{ category: Category; severity: 'low' | 'medium' | 'high'; description: string }> {
+  const response = await fetch(cloudinaryUrl(publicId, 1000), { signal: signal?AbortSignal.any([signal,AbortSignal.timeout(10000)]):AbortSignal.timeout(10000), cache: 'no-store' });
   if (!response.ok) throw new Error('Photo could not be read from storage');
   const buffer = Buffer.from(await response.arrayBuffer());
   if (buffer.length > 8 * 1024 * 1024) throw new Error('Photo too large');
@@ -39,7 +39,7 @@ Choose severity from: "low", "medium", "high".
 Provide a clear, concise factual description (1-2 sentences) of the visible problem without identifying individuals.
 Reply strictly in JSON format: {"category": "Pothole", "severity": "medium", "description": "..."}` },
     { inlineData: { mimeType, data: buffer.toString('base64') } },
-  ]);
+  ],signal);
 
   let category: (typeof categories)[number] = 'Other';
   const rawCat = String(raw?.category || '').trim();
@@ -63,7 +63,6 @@ Reply strictly in JSON format: {"category": "Pothole", "severity": "medium", "de
   if (rawSev.includes('low') || rawSev.includes('minor')) severity = 'low';
   else if (rawSev.includes('high') || rawSev.includes('urgent') || rawSev.includes('severe') || rawSev.includes('critical')) severity = 'high';
 
-  const description = String(raw?.description || '').trim() || `${category} issue requiring municipal inspection and repair.`;
-
-  return { category, severity, description };
+  const description=typeof raw?.description==='string'?raw.description.trim().slice(0,2000):'';
+  return analysisSchema.parse({category,severity,description});
 }

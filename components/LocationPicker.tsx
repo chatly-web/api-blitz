@@ -1,173 +1,44 @@
 'use client';
-import { T } from '@/components/LanguageProvider';
-import { useEffect, useState } from 'react';
-import { LocateFixed, MapPin } from 'lucide-react';
+import { useEffect,useRef,useState } from 'react';
+import { LoaderCircle,MapPin } from 'lucide-react';
 import { MapView } from '@/components/MapView';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { reverseGeocodeGeoapify, type ResolvedPlace } from '@/lib/geoapify';
-
-export function LocationPicker({
-  value,
-  onChange,
-  onPlaceResolved,
-}: {
-  value: { lat: number; lng: number } | null;
-  onChange: (point: { lat: number; lng: number } | null) => void;
-  onPlaceResolved?: (place: ResolvedPlace) => void;
-}) {
-  const [latText, setLatText] = useState(value ? String(value.lat) : '');
-  const [lngText, setLngText] = useState(value ? String(value.lng) : '');
-  const [resolvedPlace, setResolvedPlace] = useState<ResolvedPlace | null>(null);
-
-  useEffect(() => {
-    if (value) {
-      setLatText(String(value.lat));
-      setLngText(String(value.lng));
-    }
-  }, [value]);
-
-  useEffect(() => {
-    if (!value) {
-      setResolvedPlace(null);
-      return;
-    }
-    let cancelled = false;
-    const timer = setTimeout(async () => {
-      const place = await reverseGeocodeGeoapify(value.lat, value.lng);
-      if (!cancelled && place) {
-        setResolvedPlace(place);
-        onPlaceResolved?.(place);
-      }
-    }, 400);
-
-    return () => {
-      cancelled = true;
-      clearTimeout(timer);
-    };
-  }, [value?.lat, value?.lng, onPlaceResolved]);
-
-  function changeCoordinates(latitude: string, longitude: string) {
-    setLatText(latitude);
-    setLngText(longitude);
-    const lat = Number(latitude);
-    const lng = Number(longitude);
-    if (
-      latitude.trim() &&
-      longitude.trim() &&
-      Number.isFinite(lat) &&
-      Number.isFinite(lng) &&
-      lat >= -90 &&
-      lat <= 90 &&
-      lng >= -180 &&
-      lng <= 180
-    ) {
-      onChange({ lat, lng });
-    } else {
-      onChange(null);
-    }
-  }
-
-  const [message, setMessage] = useState('');
-  const [busy, setBusy] = useState(false);
-  const [autoTriggered, setAutoTriggered] = useState(false);
-
-  function locate() {
-    if (!navigator.geolocation) {
-      setMessage('Location is unavailable. Enter the coordinates manually.');
-      return;
-    }
-    setBusy(true);
-    setMessage('Waiting for location permission…');
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        onChange({ lat: position.coords.latitude, lng: position.coords.longitude });
-        setBusy(false);
-        setMessage('Location added. Drag the pin to the exact issue.');
-      },
-      () => {
-        setBusy(false);
-        setMessage('Location permission was denied or GPS is unavailable. Enter the coordinates below.');
-      },
-      { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
-    );
-  }
-
-  // Auto-detect location on mount
-  useEffect(() => {
-    if (!autoTriggered && !value && navigator.geolocation) {
-      setAutoTriggered(true);
-      locate();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <div className="location-picker">
-      <div className="location-actions">
-        <Button variant="outline" type="button" onClick={locate} disabled={busy}>
-          <LocateFixed size={16} />
-          {busy ? 'Locating…' : 'Use my current location'}
-        </Button>
-        <p className="field-help" style={{ margin: 0 }}>
-          Or enter coordinates, then adjust the pin.
-        </p>
-      </div>
-
-      <div className="form-grid">
-        <div>
-          <label className="field-label" htmlFor="latitude">
-            Latitude
-          </label>
-          <Input
-            id="latitude"
-            type="number"
-            step="any"
-            min="-90"
-            max="90"
-            value={latText}
-            onChange={event => changeCoordinates(event.target.value, lngText)}
-            placeholder="e.g. 23.0225"
-            required
-          />
-        </div>
-        <div>
-          <label className="field-label" htmlFor="longitude">
-            Longitude
-          </label>
-          <Input
-            id="longitude"
-            type="number"
-            step="any"
-            min="-180"
-            max="180"
-            value={lngText}
-            onChange={event => changeCoordinates(latText, event.target.value)}
-            placeholder="e.g. 72.5714"
-            required
-          />
-        </div>
-      </div>
-
-      <p role="status" className="field-help" style={{ marginBottom: 12 }}>
-        {message}
-      </p>
-
-      {value && <MapView value={value} onPick={onChange} />}
-
-      {resolvedPlace && (
-        <p className="field-help" style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <MapPin size={14} style={{ flexShrink: 0 }} />
-          <span>
-            {resolvedPlace.name ? <strong>{resolvedPlace.name} · </strong> : null}
-            {resolvedPlace.formatted}
-          </span>
-        </p>
-      )}
-
-      <p className="field-help">
-        The exact coordinates will be visible on the issue map. Choose a public location, not a private home.
-      </p>
-    </div>
-  );
+import { T } from '@/components/LanguageProvider';
+import { shouldApplyDeviceLocation } from '@/lib/auto-fill';
+import { reverseGeocodeGeoapify,type ResolvedPlace } from '@/lib/geoapify';
+type Point={lat:number;lng:number};
+export function LocationPicker({value,onChange,onPlaceResolved}:{value:Point|null;onChange:(point:Point|null)=>void;onPlaceResolved?:(place:ResolvedPlace)=>void}){
+ const [latText,setLatText]=useState(value?String(value.lat):'');const [lngText,setLngText]=useState(value?String(value.lng):'');
+ const [resolvedPlace,setResolvedPlace]=useState<ResolvedPlace|null>(null);const [message,setMessage]=useState('');const [busy,setBusy]=useState(false);
+ const manuallyEdited=useRef(false);const callbacks=useRef({onChange,onPlaceResolved});callbacks.current={onChange,onPlaceResolved};
+ useEffect(()=>{if(value){setLatText(String(value.lat));setLngText(String(value.lng));}},[value]);
+ useEffect(()=>{
+  if(value)return;
+  if(!navigator.geolocation){setMessage('GPS is unavailable. Enter the coordinates below.');return;}
+  let cancelled=false;setBusy(true);setMessage('Requesting your current location…');
+  navigator.geolocation.getCurrentPosition(position=>{
+   if(shouldApplyDeviceLocation(manuallyEdited.current,cancelled)){
+    callbacks.current.onChange({lat:position.coords.latitude,lng:position.coords.longitude});
+    setMessage(`Device location added (about ±${Math.round(position.coords.accuracy)} m). Drag the pin if the issue is elsewhere.`);
+   }
+   if(!cancelled)setBusy(false);
+  },error=>{
+   if(cancelled)return;setBusy(false);
+   if(!manuallyEdited.current)setMessage(error.code===1?'Location permission was denied. Enter coordinates below or enable location access in your browser.':'GPS could not determine your location. Enter coordinates below.');
+  },{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+  return ()=>{cancelled=true;};
+  // Start one permission-aware device request on mount; edits never start another request.
+ },[]);
+ useEffect(()=>{
+  setResolvedPlace(null);if(!value)return;
+  const controller=new AbortController();let cancelled=false;
+  const timer=setTimeout(()=>void reverseGeocodeGeoapify(value.lat,value.lng,controller.signal).then(place=>{if(!cancelled&&place){setResolvedPlace(place);callbacks.current.onPlaceResolved?.(place);}}),400);
+  return ()=>{cancelled=true;controller.abort();clearTimeout(timer);};
+ },[value?.lat,value?.lng]);
+ function pick(point:Point|null){manuallyEdited.current=true;setBusy(false);setMessage(point?'Location selected. Review the pin before submitting.':'Enter both coordinates to select the exact location.');onChange(point);}
+ function changeCoordinates(latitude:string,longitude:string){
+  setLatText(latitude);setLngText(longitude);const lat=Number(latitude),lng=Number(longitude);
+  pick(latitude.trim()&&longitude.trim()&&Number.isFinite(lat)&&Number.isFinite(lng)&&lat>=-90&&lat<=90&&lng>=-180&&lng<=180?{lat,lng}:null);
+ }
+ return <div className="location-picker"><div className="auto-location-status" role="status" aria-live="polite">{busy?<LoaderCircle size={16} className="spinner"/>:<MapPin size={16}/>}<p>{message || 'Your browser will request location access. Coordinates stay editable.'}</p></div><div className="form-grid"><div><label className="field-label" htmlFor="latitude"><T>Latitude</T></label><Input id="latitude" type="number" step="any" min="-90" max="90" value={latText} onChange={event=>changeCoordinates(event.target.value,lngText)} placeholder="e.g. 23.0225" required/></div><div><label className="field-label" htmlFor="longitude"><T>Longitude</T></label><Input id="longitude" type="number" step="any" min="-180" max="180" value={lngText} onChange={event=>changeCoordinates(latText,event.target.value)} placeholder="e.g. 72.5714" required/></div></div>{value&&<MapView value={value} onPick={pick}/>}<div className="location-address" aria-live="polite">{resolvedPlace&&<p className="field-help"><MapPin size={14}/><span>{resolvedPlace.name&&<strong>{resolvedPlace.name} · </strong>}{resolvedPlace.formatted}</span></p>}</div><p className="field-help">Device location is an estimate, not a location extracted from the photo. Coordinates are shown to signed-in users. With Geoapify configured, coordinates are sent there to fill the neighborhood; otherwise enter it manually.</p></div>;
 }

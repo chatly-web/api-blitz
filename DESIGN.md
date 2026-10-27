@@ -33,3 +33,6 @@ Use a 32px page heading, 14–16px working text and consistent 44px primary cont
 
 ## Accountability and evidence
 Timeline uses actual recorded submission/claim/status milestones and omits internal-note events and authority actors. Outcome summaries use dataset counts and explicit denominators; photo presence is not labeled independently verified. Category bars include text counts. The authority attention score is explainable and presented as workload assistance, never emergency severity or a deadline. Live photo upload uses a neutral prompt and the citizen’s selected evidence; stock samples remain in the read-only demo/loading placeholders.
+
+## Automatic report intake
+No separate photo-suggestion or current-location buttons. Successful photo uploads automatically request AI category/description suggestions. Device location is requested once on form opening with normal browser permission; coordinates and neighborhood stay editable. Loading/status messages explain progress and failure. Picsum imagery occupies the upload/photo area until real delivery is ready, is labeled sample preview, and never enters the upload payload. A late AI/GPS response must preserve newer citizen edits.

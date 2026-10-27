@@ -22,3 +22,16 @@ test('timeouts and network failures have useful user-facing messages',()=>{
   assert.match(errorMessage(new TypeError('Failed to fetch')),/Check your connection/);
   assert.match(errorMessage({}),/try again/);
 });
+test('automatic requests can be cancelled without waiting for the transport timeout',async t=>{
+ t.mock.method(globalThis,'fetch',async(_url:Parameters<typeof fetch>[0],options?:RequestInit)=>{
+  const signal=options?.signal as AbortSignal;
+  return await new Promise<Response>((_resolve,reject)=>{
+   if(signal.aborted){reject(signal.reason);return;}
+   signal.addEventListener('abort',()=>reject(signal.reason),{once:true});
+  });
+ });
+ const controller=new AbortController();
+ const pending=postJson('/api/analyze-photo',{},'POST',controller.signal);
+ controller.abort();
+ await assert.rejects(pending,error=>error instanceof DOMException&&error.name==='AbortError');
+});

@@ -9,12 +9,12 @@ function getGeoapifyKey(): string | undefined {
   return process.env.NEXT_PUBLIC_GEOAPIFY_KEY || process.env.PUBLIC_GEOAPIFY_KEY || process.env.GEOAPIFY_KEY;
 }
 
-export async function reverseGeocodeGeoapify(lat: number, lng: number): Promise<ResolvedPlace | null> {
+export async function reverseGeocodeGeoapify(lat: number, lng: number, signal?:AbortSignal): Promise<ResolvedPlace | null> {
   const apiKey = getGeoapifyKey();
   if (!apiKey) return null;
   try {
     const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}&format=json&apiKey=${encodeURIComponent(apiKey)}`;
-    const response = await fetch(url);
+    const response = await fetch(url,{signal:signal?AbortSignal.any([signal,AbortSignal.timeout(8000)]):AbortSignal.timeout(8000)});
     if (!response.ok) return null;
     const data = await response.json();
     const result = data.results?.[0];
