@@ -115,13 +115,13 @@ export function PhotoUpload({
 
     try {
       const res = await fetch(activeCategoryPlaceholder);
-      if (!res.ok) throw new Error('Could not fetch sample photo from Picsum.');
+      if (!res.ok) throw new Error('Could not fetch sample photo.');
       const blob = await res.blob();
       const sampleFile = new File([blob], `civic-sample-${category || purpose}.jpg`, { type: 'image/jpeg' });
       await upload(sampleFile);
     } catch (err) {
       setPlaceholderUrl(null);
-      setError(errorMessage(err) || 'Failed to fetch sample image from Picsum.');
+      setError(errorMessage(err) || 'Failed to fetch sample image.');
       setBusy(false);
       onBusyChange?.(false);
     }
@@ -155,11 +155,11 @@ export function PhotoUpload({
               <div className="image-shimmer" aria-hidden="true" />
               <span className="upload-unified-badge">
                 <LoaderCircle size={14} className="spinner" />
-                Uploading photo… (Picsum preview)
+                Uploading photo… (Sample preview)
               </span>
             </>
           ) : (
-            // Pre-upload state: Displays category-specific placeholder from Picsum
+            // Pre-upload state: Displays category-specific sample photo
             <>
               <img
                 src={activeCategoryPlaceholder}
@@ -168,7 +168,7 @@ export function PhotoUpload({
               />
               <span className="upload-unified-badge badge-placeholder">
                 <Sparkles size={12} />
-                {category ? `${category} photo placeholder (Picsum)` : 'Category placeholder (Picsum)'}
+                {category ? `${category} sample photo` : 'Sample photo'}
               </span>
             </>
           )}
