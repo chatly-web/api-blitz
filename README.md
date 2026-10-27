@@ -61,3 +61,13 @@ Optional reopening votes are not included. No home feed, notifications, comment 
 The connected site is https://api-blitz-three.vercel.app. Until real service variables and the database migration are applied, sign-in/write actions are unavailable and the app says so. The read-only preview never pretends to be a real logged-in account or a verified civic report.
 
 Photo IDs are random and never include a citizen/authority avatar seed or user ID. Upload ownership is recorded in a private table. Direct browser table reads are denied to prevent bypassing the sanitized data layer.
+
+## Evidence-first workflow improvements
+
+- `/insights` shows current-dataset outcomes, category breakdowns, and resolution photo comparisons. `/demo/insights` uses explicitly labeled sample data.
+- Report pages show submission and sanitized authority claim/status milestones from the existing audit records; actor identities and internal notes never enter timeline DTOs.
+- Authority sorting defaults to **Needs attention**: waiting age up to 60 points over 14 days, positive net support up to 25, unclaimed work 15. Resolved work scores zero. This is an ordering aid, not emergency assessment or a promised SLA.
+- Live reports require a user-selected photo. The app no longer offers stock-image submission as real civic evidence.
+- Supabase remains the database and authentication provider. No Neon dependency or new database migration is required for these features.
+
+Research, tradeoffs and the demonstration sequence are documented in [the product review](docs/research/2026-10-28-product-review.md). Confirm the organizers’ revised requirements and assigned APIs before making compliance claims.

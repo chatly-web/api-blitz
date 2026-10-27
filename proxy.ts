@@ -6,7 +6,7 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const path = request.nextUrl.pathname;
   const adminPage = path === '/admin' || path.startsWith('/admin/');
-  const protectedPage = adminPage || path === '/map' || path === '/me' || path.startsWith('/report/') || path.startsWith('/r/');
+  const protectedPage = adminPage || path === '/insights' || path.startsWith('/insights/') || path === '/map' || path === '/me' || path.startsWith('/report/') || path.startsWith('/r/');
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;

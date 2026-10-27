@@ -30,3 +30,6 @@ Compact native language selector with native language names, persistent choice a
 
 ## Professional interface refinement
 Use a 32px page heading, 14–16px working text and consistent 44px primary controls. Navigation highlights the current area. Map filters, results count, map and status key share one workspace boundary; category and status filters compose. The report editor pairs photo evidence with details on desktop, with full-width location and a single-column mobile layout. Checklist indicators reflect actual form completion. Keep the white/green palette, native multilingual typography, restrained shadows and reduced-motion support. On mobile the repeated header report action is hidden; report creation remains available from map/empty states and assistant links.
+
+## Accountability and evidence
+Timeline uses actual recorded submission/claim/status milestones and omits internal-note events and authority actors. Outcome summaries use dataset counts and explicit denominators; photo presence is not labeled independently verified. Category bars include text counts. The authority attention score is explainable and presented as workload assistance, never emergency severity or a deadline. Live photo upload uses a neutral prompt and the citizen’s selected evidence; stock samples remain in the read-only demo/loading placeholders.

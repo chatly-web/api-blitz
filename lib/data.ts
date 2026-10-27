@@ -21,7 +21,9 @@ export async function getReports(options: { authorId?: string; activeOnly?: bool
     rows.push(...(data || []) as unknown as Record<string, unknown>[]);
     if (!data || data.length<1000) break;
   }
-  return rows.map(row => publicReport(row));
+  const reports=rows.map(row => publicReport(row));
+  if(options.sort==='attention'){const {orderForAttention}=await import('@/lib/civic-intelligence');return orderForAttention(reports);}
+  return reports;
 }
 export async function getReport(id: string, viewerId?: string) {
   const db = serviceClient();
@@ -67,4 +69,15 @@ export async function getPrivateNotes(reportId: string) {
   const { data, error } = await serviceClient().from('admin_notes').select('id,body,created_at').eq('report_id', reportId).order('created_at');
   if (error) throw new Error('Could not load internal notes.');
   return (data || []).map(row => ({ id: row.id, body: row.body, createdAt: row.created_at }));
+}
+
+export async function getReportHistory(report: { id:string;createdAt:string }) {
+  const {reportHistory}=await import('@/lib/civic-intelligence');
+  const rows:Record<string,unknown>[]=[];
+  for(let offset=0;;offset+=1000){
+    const {data,error}=await serviceClient().from('audit_log').select('id,action,created_at').eq('report_id',report.id).order('created_at').order('id').range(offset,offset+999);
+    if(error)throw new Error('Could not load report history.');
+    rows.push(...(data||[]));if(!data||data.length<1000)break;
+  }
+  return reportHistory(report.createdAt,rows);
 }

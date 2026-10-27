@@ -102,7 +102,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "सटीक स्थान। वास्तविक प्रमाण। आपके वार्ड प्राधिकरण से अपडेट।",
     "Anonymous to the community. Accountable to your city.": "समुदाय के सामने गुमनाम। शहर के प्रति जवाबदेह।",
     "Your contribution to a better neighborhood, from first photo to resolution.": "पहली फ़ोटो से समाधान तक, बेहतर मोहल्ले के लिए आपका योगदान।",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "संदेश Groq को भेजे जाते हैं। नाम, संपर्क विवरण और निजी जानकारी न लिखें। चैट इसी टैब में रहती है।"
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "संदेश Groq को भेजे जाते हैं। नाम, संपर्क विवरण और निजी जानकारी न लिखें। चैट इसी टैब में रहती है।",
+    "Outcomes": "परिणाम"
   },
   "gu": {
     "Issue map": "સમસ્યાઓનો નકશો",
@@ -205,7 +206,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "ચોક્કસ સ્થાન. વાસ્તવિક પુરાવા. તમારા વોર્ડ સત્તાધિકારીના અપડેટ.",
     "Anonymous to the community. Accountable to your city.": "સમુદાય સામે અનામી. શહેર પ્રત્યે જવાબદાર.",
     "Your contribution to a better neighborhood, from first photo to resolution.": "પ્રથમ ફોટોથી ઉકેલ સુધી, સારા વિસ્તાર માટે તમારું યોગદાન.",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "સંદેશા Groqને મોકલાય છે. નામ, સંપર્ક વિગતો અને ખાનગી માહિતી ન લખો. ચેટ આ ટૅબમાં રહે છે."
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "સંદેશા Groqને મોકલાય છે. નામ, સંપર્ક વિગતો અને ખાનગી માહિતી ન લખો. ચેટ આ ટૅબમાં રહે છે.",
+    "Outcomes": "પરિણામો"
   },
   "mr": {
     "Issue map": "समस्यांचा नकाशा",
@@ -308,7 +310,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "अचूक ठिकाणे. खरे पुरावे. प्रभाग प्राधिकरणाकडून माहिती.",
     "Anonymous to the community. Accountable to your city.": "समुदायासमोर अनामिक. शहराप्रती जबाबदार.",
     "Your contribution to a better neighborhood, from first photo to resolution.": "पहिल्या फोटोपासून निराकरणापर्यंत, चांगल्या परिसरासाठी तुमचे योगदान.",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "संदेश Groq कडे पाठवले जातात. नावे, संपर्क तपशील आणि खाजगी माहिती टाळा. चॅट या टॅबमध्ये राहते."
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "संदेश Groq कडे पाठवले जातात. नावे, संपर्क तपशील आणि खाजगी माहिती टाळा. चॅट या टॅबमध्ये राहते.",
+    "Outcomes": "परिणाम"
   },
   "bn": {
     "Issue map": "সমস্যার মানচিত্র",
@@ -411,7 +414,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "সঠিক অবস্থান। বাস্তব প্রমাণ। ওয়ার্ড কর্তৃপক্ষের আপডেট।",
     "Anonymous to the community. Accountable to your city.": "সমাজের কাছে পরিচয় গোপন। শহরের কাছে দায়বদ্ধ।",
     "Your contribution to a better neighborhood, from first photo to resolution.": "প্রথম ছবি থেকে সমাধান পর্যন্ত, উন্নত পাড়ার জন্য আপনার অবদান।",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "বার্তা Groq-এ পাঠানো হয়। নাম, যোগাযোগের তথ্য ও ব্যক্তিগত তথ্য এড়িয়ে চলুন। চ্যাট এই ট্যাবেই থাকে।"
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "বার্তা Groq-এ পাঠানো হয়। নাম, যোগাযোগের তথ্য ও ব্যক্তিগত তথ্য এড়িয়ে চলুন। চ্যাট এই ট্যাবেই থাকে।",
+    "Outcomes": "ফলাফল"
   },
   "ta": {
     "Issue map": "பிரச்சினை வரைபடம்",
@@ -514,7 +518,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "துல்லியமான இடங்கள். உண்மையான ஆதாரம். உங்கள் வார்டு அதிகாரிகளின் புதுப்பிப்புகள்.",
     "Anonymous to the community. Accountable to your city.": "சமூகத்தில் அடையாளம் மறைக்கப்படும். நகரத்திற்குப் பொறுப்பானது.",
     "Your contribution to a better neighborhood, from first photo to resolution.": "முதல் புகைப்படத்திலிருந்து தீர்வு வரை, சிறந்த பகுதிக்கான உங்கள் பங்களிப்பு.",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "செய்திகள் Groq-க்கு அனுப்பப்படும். பெயர்கள், தொடர்பு விவரங்கள், தனிப்பட்ட தகவல்களைத் தவிர்க்கவும். அரட்டை இந்தத் தாவலில் இருக்கும்."
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "செய்திகள் Groq-க்கு அனுப்பப்படும். பெயர்கள், தொடர்பு விவரங்கள், தனிப்பட்ட தகவல்களைத் தவிர்க்கவும். அரட்டை இந்தத் தாவலில் இருக்கும்.",
+    "Outcomes": "விளைவுகள்"
   },
   "te": {
     "Issue map": "సమస్యల పటం",
@@ -617,7 +622,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "ఖచ్చితమైన స్థానాలు. నిజమైన ఆధారాలు. మీ వార్డు అధికారుల నవీకరణలు.",
     "Anonymous to the community. Accountable to your city.": "సమాజానికి గుర్తింపు గోప్యం. నగరానికి జవాబుదారీ.",
     "Your contribution to a better neighborhood, from first photo to resolution.": "మొదటి ఫోటో నుండి పరిష్కారం వరకు, మెరుగైన పరిసరానికి మీ సహకారం.",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "సందేశాలు Groqకి పంపబడతాయి. పేర్లు, సంప్రదింపు వివరాలు, వ్యక్తిగత సమాచారం చేర్చవద్దు. చాట్ ఈ ట్యాబ్‌లోనే ఉంటుంది."
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "సందేశాలు Groqకి పంపబడతాయి. పేర్లు, సంప్రదింపు వివరాలు, వ్యక్తిగత సమాచారం చేర్చవద్దు. చాట్ ఈ ట్యాబ్‌లోనే ఉంటుంది.",
+    "Outcomes": "ఫలితాలు"
   },
   "kn": {
     "Issue map": "ಸಮಸ್ಯೆಗಳ ನಕ್ಷೆ",
@@ -720,7 +726,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "ನಿಖರ ಸ್ಥಳಗಳು. ನೈಜ ಸಾಕ್ಷ್ಯ. ನಿಮ್ಮ ವಾರ್ಡ್ ಅಧಿಕಾರಿಗಳ ನವೀಕರಣಗಳು.",
     "Anonymous to the community. Accountable to your city.": "ಸಮುದಾಯಕ್ಕೆ ಅನಾಮಧೇಯ. ನಗರಕ್ಕೆ ಜವಾಬ್ದಾರಿ.",
     "Your contribution to a better neighborhood, from first photo to resolution.": "ಮೊದಲ ಫೋಟೋದಿಂದ ಪರಿಹಾರದವರೆಗೆ, ಉತ್ತಮ ನೆರೆಹೊರೆಗೆ ನಿಮ್ಮ ಕೊಡುಗೆ.",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "ಸಂದೇಶಗಳನ್ನು Groqಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ. ಹೆಸರುಗಳು, ಸಂಪರ್ಕ ವಿವರಗಳು ಮತ್ತು ಖಾಸಗಿ ಮಾಹಿತಿ ಸೇರಿಸಬೇಡಿ. ಚಾಟ್ ಈ ಟ್ಯಾಬ್‌ನಲ್ಲಿರುತ್ತದೆ."
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "ಸಂದೇಶಗಳನ್ನು Groqಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ. ಹೆಸರುಗಳು, ಸಂಪರ್ಕ ವಿವರಗಳು ಮತ್ತು ಖಾಸಗಿ ಮಾಹಿತಿ ಸೇರಿಸಬೇಡಿ. ಚಾಟ್ ಈ ಟ್ಯಾಬ್‌ನಲ್ಲಿರುತ್ತದೆ.",
+    "Outcomes": "ಫಲಿತಾಂಶಗಳು"
   },
   "ml": {
     "Issue map": "പ്രശ്നങ്ങളുടെ ഭൂപടം",
@@ -823,7 +830,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "കൃത്യമായ സ്ഥലങ്ങൾ. യഥാർത്ഥ തെളിവുകൾ. വാർഡ് അധികാരികളുടെ അപ്ഡേറ്റുകൾ.",
     "Anonymous to the community. Accountable to your city.": "സമൂഹത്തിനു മുന്നിൽ അജ്ഞാതം. നഗരത്തോട് ഉത്തരവാദിത്തം.",
     "Your contribution to a better neighborhood, from first photo to resolution.": "ആദ്യ ഫോട്ടോ മുതൽ പരിഹാരം വരെ, മെച്ചപ്പെട്ട പ്രദേശത്തിനായുള്ള നിങ്ങളുടെ സംഭാവന.",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "സന്ദേശങ്ങൾ Groq-ലേക്ക് അയയ്ക്കും. പേരുകൾ, ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ, സ്വകാര്യ വിവരങ്ങൾ ഒഴിവാക്കുക. ചാറ്റ് ഈ ടാബിൽ തുടരും."
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "സന്ദേശങ്ങൾ Groq-ലേക്ക് അയയ്ക്കും. പേരുകൾ, ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ, സ്വകാര്യ വിവരങ്ങൾ ഒഴിവാക്കുക. ചാറ്റ് ഈ ടാബിൽ തുടരും.",
+    "Outcomes": "ഫലങ്ങൾ"
   },
   "pa": {
     "Issue map": "ਸਮੱਸਿਆਵਾਂ ਦਾ ਨਕਸ਼ਾ",
@@ -926,7 +934,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "ਸਹੀ ਟਿਕਾਣੇ। ਅਸਲ ਸਬੂਤ। ਤੁਹਾਡੇ ਵਾਰਡ ਅਧਿਕਾਰੀਆਂ ਤੋਂ ਅੱਪਡੇਟ।",
     "Anonymous to the community. Accountable to your city.": "ਭਾਈਚਾਰੇ ਲਈ ਗੁਮਨਾਮ। ਸ਼ਹਿਰ ਪ੍ਰਤੀ ਜਵਾਬਦੇਹ।",
     "Your contribution to a better neighborhood, from first photo to resolution.": "ਪਹਿਲੀ ਫੋਟੋ ਤੋਂ ਹੱਲ ਤੱਕ, ਬਿਹਤਰ ਮੁਹੱਲੇ ਲਈ ਤੁਹਾਡਾ ਯੋਗਦਾਨ।",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "ਸੁਨੇਹੇ Groq ਨੂੰ ਭੇਜੇ ਜਾਂਦੇ ਹਨ। ਨਾਂ, ਸੰਪਰਕ ਵੇਰਵੇ ਅਤੇ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਾ ਲਿਖੋ। ਚੈਟ ਇਸ ਟੈਬ ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ।"
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "ਸੁਨੇਹੇ Groq ਨੂੰ ਭੇਜੇ ਜਾਂਦੇ ਹਨ। ਨਾਂ, ਸੰਪਰਕ ਵੇਰਵੇ ਅਤੇ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਨਾ ਲਿਖੋ। ਚੈਟ ਇਸ ਟੈਬ ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ।",
+    "Outcomes": "ਨਤੀਜੇ"
   },
   "ur": {
     "Issue map": "مسائل کا نقشہ",
@@ -1029,7 +1038,8 @@ export const translations: Record<Exclude<Language,'en'>, Record<string,string>>
     "Exact locations. Real evidence. Updates from your Ward Authority.": "درست مقامات۔ حقیقی ثبوت۔ آپ کے وارڈ حکام کی تازہ کاریاں۔",
     "Anonymous to the community. Accountable to your city.": "برادری کے سامنے گمنام۔ شہر کے لیے جوابدہ۔",
     "Your contribution to a better neighborhood, from first photo to resolution.": "پہلی تصویر سے حل تک، بہتر محلے کے لیے آپ کی شراکت۔",
-    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "پیغامات Groq کو بھیجے جاتے ہیں۔ نام، رابطے کی تفصیلات اور نجی معلومات سے گریز کریں۔ گفتگو اسی ٹیب میں رہتی ہے۔"
+    "Messages are sent to Groq. Avoid names, contact details and private information. Chat stays in this tab.": "پیغامات Groq کو بھیجے جاتے ہیں۔ نام، رابطے کی تفصیلات اور نجی معلومات سے گریز کریں۔ گفتگو اسی ٹیب میں رہتی ہے۔",
+    "Outcomes": "نتائج"
   }
 };
 export function translateLabel(language:Language,text:string):string { return language==='en' ? text : translations[language]?.[text] || text; }
