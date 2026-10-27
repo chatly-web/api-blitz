@@ -3,10 +3,14 @@
 ## Platform
 web
 ## Stack
-Plain HTML, CSS, and JavaScript, with no build step.
+Plain HTML, CSS and JavaScript; Node.js server modules; one Vercel function. No third-party runtime packages.
+## Users
+An event team preparing before the API list is announced.
 ## Product Purpose
-A simple webpage starter named API Blitz. The user accepts a simple plain page. The intended workflow is to keep the project in GitHub and publish it with Vercel.
+Prepare to select three of five supplied APIs and combine them into one useful user solution.
+## Operating Context
+GitHub repository chatly-web/api-blitz, local project in Downloads/api-blitz, hosted on Vercel. Future updates use Git with macOS Keychain credentials.
 ## Capabilities and Constraints
-A local playground lets visitors choose one of three sample endpoints, submit the form, view JSON, and copy it. Responses are static browser-side samples with a short simulated delay. No external API keys or backend are needed. The page includes starter guidance and anchor navigation. Future API functionality remains open.
+Five placeholder adapters, exactly-three selection based on the user's current description, a problem brief, local save and JSON export, server-side runner, explicit mock results, failure and timeout handling. Actual providers, rules, judging criteria, domain-specific workflow and finished solution remain unknown. Official rules may change the selection constraint.
 ## Brand Commitments
-Name: API Blitz.
+Name: API Blitz. Preserve the current simple visual system during preparation.

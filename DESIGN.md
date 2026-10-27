@@ -58,3 +58,7 @@ Response status uses a polite live region. JSON is keyboard focusable. Copy JSON
 ## Do's and Don'ts
 
 Preserve the simple page structure, cream/olive palette, restrained borders, and clear local-demo label. Keep form labels and state feedback explicit. Do not imply that the playground calls a live backend or requires credentials.
+
+## Event workspace update
+
+The main surface is now an operating workspace. A compact event introduction replaces the generic landing hero. A two-column bordered workspace pairs the problem brief with five selectable API rows. Selection caps at three with a visible count. Results use parallel API diagnostics and a combined view; the initial empty state explains how to start. The event-prep section retains sequential steps. The existing palette, typography and responsive stacking remain. New component states include catalog failure/retry, valid selection, loading/busy, partial run, timeout, previous results and browser-storage failure. All provider values are rendered as text.

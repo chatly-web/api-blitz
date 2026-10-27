@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prepare for API Blitz: explore five API slots, choose three, and build one useful solution.">
+  <meta name="theme-color" content="#f4f2e9">
+  <title>API Blitz — Event workspace</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="shell header">
+    <a class="brand" href="./" aria-label="API Blitz home"><svg viewBox="0 0 28 32" aria-hidden="true"><path d="M16 2 3 18h10l-1 12L26 12H16z"/></svg>API BLITZ<span class="brand-dot">.</span></a>
+    <nav aria-label="Main navigation"><a href="#workspace">Workspace</a><a href="#prepare">Event prep</a></nav>
+  </header>
+  <main id="main">
+    <section class="shell event-intro"><div><h1>Five APIs. Three connections.<br><em>One useful solution.</em></h1><p>Your workspace for the event. Define a problem, choose three APIs, and test the connections before building your final solution.</p></div><p class="event-note"><strong>Ready for the announcement.</strong><br>The APIs and detailed rules haven’t been released. All five slots currently return mock data.</p></section>
+    <form id="solution-form" class="shell workspace" aria-label="Event solution workspace">
+      <section class="planning" id="workspace" aria-labelledby="brief-heading">
+        <h2 id="brief-heading">Start with the problem</h2><p class="section-copy">Give all three APIs a shared purpose.</p>
+        <label for="project-title">Solution name <span>(optional)</span></label><input id="project-title" maxlength="100" placeholder="Your idea’s name" autocomplete="off">
+        <label for="audience">Who is it for? <span>(optional)</span></label><input id="audience" maxlength="160" placeholder="A specific person with a specific need" autocomplete="off">
+        <label for="problem">Problem or test input <span>(required)</span></label><textarea id="problem" rows="4" required maxlength="1000" placeholder="What task should your solution help someone complete?" aria-describedby="problem-help"></textarea><p class="field-help" id="problem-help">This input is passed to each selected adapter. Don’t enter secrets.</p>
+        <label for="success">What would a good result do? <span>(optional)</span></label><input id="success" maxlength="200" placeholder="Describe one clear, useful outcome" autocomplete="off">
+        <p class="save-note" id="save-note">Your brief and selection are saved in this browser.</p>
+      </section>
+      <section class="api-selection" aria-labelledby="selection-heading"><div class="section-title"><h2 id="selection-heading">Choose your three</h2><span id="selection-count" class="count" role="status" aria-live="polite">0 / 3 selected</span></div><p class="section-copy" id="selection-help">Select exactly three of the five event APIs.</p>
+        <fieldset id="api-list" aria-describedby="selection-help"><legend class="sr-only">Available event APIs</legend><p>Loading API slots…</p></fieldset>
+        <button type="button" class="text-button" id="retry-catalog" hidden>Retry loading API slots</button>
+        <div class="run-actions"><button class="primary" id="run" type="submit" disabled>Run wiring check <span aria-hidden="true">→</span></button><p id="run-help">Choose three APIs and enter a problem to continue.</p></div>
+        <p class="run-status" id="run-status" role="status" aria-live="polite"></p>
+      </section>
+    </form>
+    <section class="shell results" id="results" aria-labelledby="results-heading" aria-busy="false"><div class="section-title"><h2 id="results-heading">See how it connects</h2><span class="sample" id="result-mode">Not run yet</span></div><div id="result-content"><div class="empty-state"><p>Your three API results will appear here.</p><p>Run a wiring check to inspect each contribution and the combined view. The finished solution logic comes after the APIs are announced.</p></div></div></section>
+    <section class="shell preparation" id="prepare"><div><h2>Build around a real need.</h2><p>Three API calls become a solution when each one contributes something the user needs.</p><button class="secondary" id="export-brief" type="button">Export preparation brief</button><p class="field-help" id="export-status" role="status" aria-live="polite"></p></div><ol class="steps"><li><div><h3>Map the five APIs</h3><p>Record what each API can do, authentication, limits, data shape, and reliability when the list arrives.</p></div></li><li><div><h3>Choose a useful combination</h3><p>Pick one user problem. Explain the role of each of the three APIs and how their outputs connect.</p></div></li><li><div><h3>Build one complete path</h3><p>Connect the adapters, write the solution logic, and test the user journey—including a failed API.</p></div></li><li><div><h3>Prepare your demo</h3><p>Show the problem, one successful flow, and why all three APIs matter. Confirm the official rules first.</p></div></li></ol></section>
+  </main>
+  <footer class="shell footer"><span>API BLITZ</span><span>Event starter · Mock data only</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

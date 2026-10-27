@@ -1,7 +1,8 @@
 {
   "name": "api-blitz",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "A simple API Blitz website starter",
-  "scripts": { "start": "node server.cjs", "check": "node --check assets/app.js" }
+  "description": "Five-API event starter: choose three and compose one useful solution",
+  "engines": { "node": ">=22" },
+  "scripts": { "start": "node server.cjs", "check": "node --check public/assets/app.js && node --check server.cjs && node --check api/index.mjs", "test": "node --test" }
 }
