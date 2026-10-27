@@ -23,6 +23,9 @@ test('database privacy, votes, claims, proof, replies and limits', async t => {
     await assert.rejects(db.query(`update reports set status='resolved' where id=$1`,[report]),/permission denied/);
     await assert.rejects(db.query(`insert into comments(report_id,author_id,body) values($1,$2,'bypass moderation')`,[report,citizen]),/permission denied/);
     await db.exec('reset role');
+    await db.exec('set role anon');
+    for (const table of ['profiles','reports','comments','votes','audit_log','admin_notes','official_emails','upload_authorizations']) await assert.rejects(db.query(`select * from ${table}`),/permission denied/);
+    await db.exec('reset role');
   });
   await t.test('photo ownership is private and evidence IDs contain no public identity seed',async () => {
     const publicId='civic/evidence/40000000-0000-4000-8000-000000000001';

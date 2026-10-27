@@ -22,6 +22,8 @@ Use Node.js 22 or newer. Run `npm ci`. `.env.local` is ignored by Git. A blank l
 
 For local development set NEXT_PUBLIC_SITE_URL=http://localhost:3000. For production use https://api-blitz-three.vercel.app. Restart/redeploy after environment changes. Do not copy real keys into .env.example or public files.
 
+After editing your local file, run `npm run setup:check`. It validates required names, basic URL/secret rules and optional fallbacks without printing values or contacting providers. It does not apply SQL or verify live accounts.
+
 ## 2. Supabase schema and Google login
 
 1. Create a Supabase project.

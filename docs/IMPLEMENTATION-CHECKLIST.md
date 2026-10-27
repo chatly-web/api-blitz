@@ -29,3 +29,14 @@ The following cannot be claimed as tested without your credentials: real Google 
 The PDF's optional reopening button is deliberately deferred. Database writes are more restrictive than the sketch: all reads and mutations pass through server routes so moderation, upload validation and rate limits cannot be bypassed.
 
 Privacy review corrections: random evidence IDs replace identity-based image paths; private upload ownership authorizes previews/submissions. All direct browser table reads are revoked, including raw profiles/reports/comments.
+
+## Credential-independent follow-up
+
+- Parent forms now wait for photo uploads before allowing submission, including replacement resolution photos.
+- Discussion reads paginate instead of silently hiding comments beyond the first 500; vote lookups are batched.
+- Public DTO regression tests inject private fields and assert those fields never reach browser-facing output.
+- Transport tests cover structured validation failures, invalid JSON, unexpected responses and no automatic write retries.
+- Network failures during Google sign-in reset the action and show a recoverable error.
+- Anonymous as well as authenticated database roles are explicitly tested for denied direct table reads.
+
+No seed data or live service mutations are part of these checks.

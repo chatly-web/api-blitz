@@ -11,7 +11,8 @@
     "start": "next start --hostname 127.0.0.1",
     "check": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
-    "seed": "tsx --env-file=.env.local scripts/seed.ts"
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "setup:check": "tsx scripts/check-config.ts"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.12",

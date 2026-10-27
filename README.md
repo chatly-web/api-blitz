@@ -8,6 +8,7 @@ A Next.js implementation of the supplied civic reporting plan. Citizens sign in 
 
 ```sh
 npm ci
+npm run setup:check  # after filling .env.local; prints status only
 npm run dev
 # http://localhost:3000
 npm test
