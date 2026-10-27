@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { Camera, LoaderCircle, AlertCircle, CheckCircle2, Sparkles, RefreshCw, Trash2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Camera, LoaderCircle, AlertCircle, CheckCircle2, Sparkles, RefreshCw, Trash2, Shuffle } from 'lucide-react';
 import { postJson, errorMessage } from '@/lib/client-api';
 import type { UploadReceipt, Category } from '@/lib/types';
 import { CloudImage } from '@/components/CloudImage';
@@ -26,8 +26,16 @@ export function PhotoUpload({
   const [placeholderUrl, setPlaceholderUrl] = useState<string | null>(null);
   const [lastFile, setLastFile] = useState<File | null>(null);
 
-  // Category-specific placeholder image from Picsum
-  const activeCategoryPlaceholder = getCategoryPicsumUrl(category, 1000, 700);
+  // Sample index for category-specific randomized preview
+  const [sampleIndex, setSampleIndex] = useState(() => Math.floor(Math.random() * 100));
+
+  // Whenever category changes, pick a new random sample from that category's pool
+  useEffect(() => {
+    setSampleIndex(Math.floor(Math.random() * 100));
+  }, [category]);
+
+  // Category-specific randomized placeholder image
+  const activeCategoryPlaceholder = getCategoryPicsumUrl(category, 1000, 700, sampleIndex);
 
   async function upload(file?: File) {
     if (!file) return;
@@ -248,9 +256,20 @@ export function PhotoUpload({
                   className="button button-sm button-outline"
                   onClick={usePicsumSample}
                   disabled={busy || disabled}
+                  title="Upload this sample photo as issue evidence"
                 >
                   <Sparkles size={13} />
                   Use this sample
+                </button>
+                <button
+                  type="button"
+                  className="button button-sm button-ghost"
+                  onClick={() => setSampleIndex(idx => idx + 1)}
+                  disabled={busy || disabled}
+                  title={`Show another random ${category || 'civic'} sample photo`}
+                >
+                  <Shuffle size={13} />
+                  Different photo
                 </button>
               </>
             )}
