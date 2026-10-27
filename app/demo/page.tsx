@@ -2,12 +2,7 @@ import { AppShell } from '@/components/AppShell';
 import { MapContent } from '@/components/MapContent';
 import { PicsumSimulator } from '@/components/PicsumSimulator';
 import { PersonaStudio } from '@/components/PersonaStudio';
-import { demoReports } from '@/lib/demo';
-
-const DEMO_IDENTITY = {
-  handle: 'Ward 4 Resident #7a2f',
-  avatarSeed: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
-};
+import { demoReports, DEMO_IDENTITY } from '@/lib/demo';
 
 export default function Demo() {
   return (

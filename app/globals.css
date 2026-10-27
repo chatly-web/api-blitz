@@ -73,3 +73,8 @@ body{line-height:1.65;-webkit-font-smoothing:antialiased}main{min-height:65vh}h1
 .verification-status.verifying{background:#f8fbf7;border:1px solid var(--border);color:var(--muted)}
 .verification-status.verified{background:#f0f8f3;border:1px solid #c2e2cf;color:#18533a}
 .verification-status.rejected{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.comparison-divider>svg{transition:transform 180ms cubic-bezier(.16,1,.3,1),box-shadow 180ms ease}
+.comparison-images:hover .comparison-divider>svg{transform:scale(1.12);box-shadow:0 4px 18px rgba(0,0,0,0.3)}
+.vote-controls button{transition:transform 160ms cubic-bezier(.175,.885,.32,1.275),background-color 160ms ease,color 160ms ease}
+.vote-controls button:active:not(:disabled){transform:scale(0.85)}
+.vote-controls button[aria-pressed=true]{transform:scale(1.08)}

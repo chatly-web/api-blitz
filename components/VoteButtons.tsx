@@ -2,10 +2,17 @@
 import { useState } from 'react';
 import { ThumbsUp, ThumbsDown } from 'lucide-react';
 import { postJson, errorMessage } from '@/lib/client-api';
-export function VoteButtons({ targetId, targetType, initialScore, initialVote, disabled = false }: { targetId: string; targetType: 'report' | 'comment'; initialScore: number; initialVote: number; disabled?: boolean }) {
+export function VoteButtons({ targetId, targetType, initialScore, initialVote, disabled = false, demo = false }: { targetId: string; targetType: 'report' | 'comment'; initialScore: number; initialVote: number; disabled?: boolean; demo?: boolean }) {
   const [score,setScore] = useState(initialScore); const [vote,setVote] = useState(initialVote); const [busy,setBusy] = useState(false); const [error,setError] = useState('');
   async function cast(value: 1 | -1) {
     if (busy || disabled) return;
+    if (demo) {
+      const nextVote = vote === value ? 0 : value;
+      const delta = nextVote - vote;
+      setVote(nextVote);
+      setScore(s => s + delta);
+      return;
+    }
     setBusy(true); setError('');
     try { const result = await postJson<{ score: number; myVote: number }>('/api/votes', { targetType,targetId,value }); setScore(result.score); setVote(result.myVote); }
     catch (error) { setError(errorMessage(error)); } finally { setBusy(false); }

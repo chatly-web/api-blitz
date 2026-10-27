@@ -1,4 +1,8 @@
-import type { Comment, Report } from '@/lib/types';
+import type { Comment, Report, Identity } from '@/lib/types';
+export const DEMO_IDENTITY: Identity = {
+  handle: 'Ward 4 Resident #7a2f',
+  avatarSeed: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
+};
 const author = { handle: 'neighbor-demo-01', avatarSeed: 'a'.repeat(64) };
 export const demoReports: Report[] = [
   { id:'10000000-0000-4000-8000-000000000001',category:'Pothole',description:'Demonstration report: a damaged stretch of road makes this crossing difficult to use. These are sample coordinates and generic placeholder photographs, not evidence of a real civic issue.',lat:23.0225,lng:72.5714,ward:'Sample neighborhood',status:'resolved',claimed:true,beforePublicId:'demo-before',afterPublicId:'demo-after',publicNote:'Sample resolution update: the affected surface has been repaired. This is demonstration content only.',score:12,createdAt:'2026-10-27T09:00:00.000Z',author,myVote:0 },
