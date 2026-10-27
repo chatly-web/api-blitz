@@ -20,15 +20,36 @@ export function PersonaStudio({ identity, isAdmin }: { identity: Identity; isAdm
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('civic_avatar_style');
+    const saved = localStorage.getItem(`civic_avatar_style_${identity.avatarSeed}`) || localStorage.getItem('civic_avatar_style');
+    const savedRole = localStorage.getItem(`civic_avatar_role_${identity.avatarSeed}`) || localStorage.getItem('civic_avatar_role');
     if (saved && STYLES.some(s => s.id === saved)) {
       setSelectedStyle(saved);
     }
-  }, []);
+    if (savedRole === 'citizen' || savedRole === 'authority') {
+      setRolePreview(savedRole);
+    }
+  }, [identity.avatarSeed]);
 
   const handleSelect = (id: string) => {
     setSelectedStyle(id);
     localStorage.setItem('civic_avatar_style', id);
+    localStorage.setItem(`civic_avatar_style_${identity.avatarSeed}`, id);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('civic:avatar-updated', {
+        detail: { seed: identity.avatarSeed, style: id, role: rolePreview }
+      }));
+    }
+  };
+
+  const handleRoleSelect = (role: 'citizen' | 'authority') => {
+    setRolePreview(role);
+    localStorage.setItem('civic_avatar_role', role);
+    localStorage.setItem(`civic_avatar_role_${identity.avatarSeed}`, role);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('civic:avatar-updated', {
+        detail: { seed: identity.avatarSeed, style: selectedStyle, role }
+      }));
+    }
   };
 
   const copyHandle = () => {
@@ -56,7 +77,7 @@ export function PersonaStudio({ identity, isAdmin }: { identity: Identity; isAdm
             type="button"
             variant={rolePreview === 'citizen' ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setRolePreview('citizen')}
+            onClick={() => handleRoleSelect('citizen')}
           >
             <User size={14} style={{ marginRight: '0.25rem' }} /> Citizen
           </Button>
@@ -64,7 +85,7 @@ export function PersonaStudio({ identity, isAdmin }: { identity: Identity; isAdm
             type="button"
             variant={rolePreview === 'authority' ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setRolePreview('authority')}
+            onClick={() => handleRoleSelect('authority')}
           >
             <Shield size={14} style={{ marginRight: '0.25rem' }} /> Authority Badge
           </Button>

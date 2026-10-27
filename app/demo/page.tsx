@@ -11,7 +11,7 @@ const DEMO_IDENTITY = {
 
 export default function Demo() {
   return (
-    <AppShell demo>
+    <AppShell demo identity={DEMO_IDENTITY}>
       <div className="page">
         <PersonaStudio identity={DEMO_IDENTITY} />
         <MapContent reports={demoReports} demo />
