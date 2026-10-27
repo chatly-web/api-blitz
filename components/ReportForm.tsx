@@ -36,7 +36,9 @@ export function ReportForm() {
     setAnalyzing(true); setSuggestion('');
     try {
       const result = await postJson<{ category: Category; description: string; severity: string }>('/api/analyze-photo', { photo });
-      setCategory(result.category); setDescription(result.description); setSuggestion(`Suggested severity: ${result.severity}. These are suggestions—review and edit them before submitting.`);
+      setCategory(result.category);
+      setDescription(result.description);
+      setSuggestion(`Suggested "${result.category}" (${result.severity} priority). Details filled below—feel free to edit before submitting.`);
     } catch (error) { setSuggestion(errorMessage(error)); }
     finally { setAnalyzing(false); }
   }

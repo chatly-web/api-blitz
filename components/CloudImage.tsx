@@ -8,8 +8,9 @@ export function deliveryUrl(publicId: string, width = 1200) {
 export function CloudImage({ publicId, alt, width = 1200, fill = false, demoSrc, className }: { publicId: string; alt: string; width?: number; fill?: boolean; demoSrc?: string; className?: string }) {
   const [loaded, setLoaded] = useState(false); const [failed, setFailed] = useState(false);
   return <div className={cn('cloud-image', fill && 'cloud-fill', className)}>
-    {!loaded && !failed && <img src={`https://picsum.photos/seed/${encodeURIComponent(publicId)}/64/48`} className="blur-placeholder" alt="" aria-hidden="true" />}
+    {!loaded && !failed && <div className="image-shimmer" aria-hidden="true" />}
     {!failed && <img src={demoSrc || deliveryUrl(publicId, width)} alt={alt} className={loaded ? 'image-ready' : 'image-loading'} onLoad={() => setLoaded(true)} onError={() => setFailed(true)} loading="lazy" />}
     {failed && <div className="image-error"><ImageOff size={24} /><span>Photo unavailable</span><small>Image delivery may need configuration.</small></div>}
   </div>;
 }
+

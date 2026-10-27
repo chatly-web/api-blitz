@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Report } from '@/lib/types';
 import { deliveryUrl } from '@/components/CloudImage';
 import { getMapTileConfig } from '@/lib/geoapify';
+import { getCivicPicsumUrl } from '@/lib/picsum';
 
 export const statusColors = { open: '#b87527', acknowledged: '#597bc2', in_progress: '#8d65b0', resolved: '#2c865b' };
 const emptyReports: Report[] = [];
@@ -12,7 +13,7 @@ function popup(report: Report, demo: boolean) {
   node.className = 'map-popup';
   const img = document.createElement('img');
   img.alt = report.category;
-  img.src = demo ? `https://picsum.photos/seed/civic-${report.id}/300/180` : deliveryUrl(report.beforePublicId, 300);
+  img.src = demo ? getCivicPicsumUrl(report.id, 300, 180) : deliveryUrl(report.beforePublicId, 300);
   img.onerror = () => img.remove();
   const title = document.createElement('h3');
   title.textContent = report.category;

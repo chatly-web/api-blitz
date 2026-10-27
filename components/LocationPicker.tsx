@@ -69,6 +69,7 @@ export function LocationPicker({
 
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
+  const [autoTriggered, setAutoTriggered] = useState(false);
 
   function locate() {
     if (!navigator.geolocation) {
@@ -90,6 +91,15 @@ export function LocationPicker({
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
     );
   }
+
+  // Auto-detect location on mount
+  useEffect(() => {
+    if (!autoTriggered && !value && navigator.geolocation) {
+      setAutoTriggered(true);
+      locate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="location-picker">
