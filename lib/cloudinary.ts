@@ -4,12 +4,32 @@ import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
 import { serviceClient } from '@/lib/supabase/service';
 import { requiredEnv } from '@/lib/env';
 import type { UploadReceipt } from '@/lib/types';
-export function cloudinaryUrl(publicId: string, width = 1200) {
+export function cloudinaryUrl(publicId: string, width = 1200, crop: 'limit' | 'fill' = 'limit') {
+  const transform = crop === 'fill'
+    ? [{ effect: 'blur_faces' }, { fetch_format: 'auto', quality: 'auto', crop: 'fill', gravity: 'auto', width, height: width }]
+    : [{ effect: 'blur_faces' }, { fetch_format: 'auto', quality: 'auto', crop: 'limit', width }];
+
   return cloudinary.url(publicId, {
     cloud_name: requiredEnv('NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME'),
     api_key: requiredEnv('CLOUDINARY_API_KEY'), api_secret: requiredEnv('CLOUDINARY_API_SECRET'),
     type: 'authenticated', resource_type: 'image', secure: true, sign_url: true,
-    transformation: [{ effect: 'blur_faces' }, { fetch_format: 'auto', quality: 'auto', crop: 'limit', width }],
+    transformation: transform,
+  });
+}
+
+export function cloudinaryThumbnailUrl(publicId: string, size = 160) {
+  return cloudinaryUrl(publicId, size, 'fill');
+}
+
+export function cloudinaryEvidenceCardUrl(publicId: string, status = 'RESOLVED') {
+  return cloudinary.url(publicId, {
+    cloud_name: requiredEnv('NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME'),
+    api_key: requiredEnv('CLOUDINARY_API_KEY'), api_secret: requiredEnv('CLOUDINARY_API_SECRET'),
+    type: 'authenticated', resource_type: 'image', secure: true, sign_url: true,
+    transformation: [
+      { width: 1200, height: 630, crop: 'fill', gravity: 'auto', effect: 'blur_faces' },
+      { fetch_format: 'auto', quality: 'auto' }
+    ],
   });
 }
 export function createUploadSignature() {
