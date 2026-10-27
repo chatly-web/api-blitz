@@ -4,3 +4,14 @@
 
 .upload-box label:focus-within{outline:3px solid #328166;outline-offset:3px}
 .image-shimmer{position:absolute;inset:0;background:linear-gradient(110deg,#e8ede9 30%,#f5f8f5 50%,#e8ede9 70%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}@keyframes shimmer{0%{background-position:200% 0}to{background-position:-200% 0}}
+.upload-placeholder-loading{position:relative;border-radius:9px;overflow:hidden;border:2px dashed #216c51;aspect-ratio:4/3;background:#edf1ec;margin-top:15px;max-width:400px}
+.upload-placeholder-loading img{width:100%;height:100%;object-fit:cover;filter:brightness(0.85);display:block}
+.placeholder-badge{position:absolute;top:12px;left:12px;z-index:2;background:rgba(21,62,45,0.9);color:#fff;backdrop-filter:blur(6px);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:7px;box-shadow:0 2px 8px rgba(0,0,0,0.18)}
+.upload-success-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#216c51;font-weight:500;margin-top:7px}
+.upload-error-box{margin-top:12px;padding:12px 14px;background:#fdf2f2;border:1px solid #f8d7da;border-radius:8px;color:#a43131;display:flex;align-items:flex-start;gap:10px;font-size:13px}
+.upload-error-box svg{flex-shrink:0;margin-top:2px}
+.upload-error-actions{display:flex;gap:8px;margin-top:8px}
+.upload-subactions{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.upload-sample-btn{background:transparent;border:0;padding:0;color:var(--accent);font-size:12px;font-weight:600;text-decoration:underline;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.upload-sample-btn:hover{color:#15583f}
+.upload-action-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
