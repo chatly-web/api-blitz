@@ -86,7 +86,7 @@ export function MapView({
               title: `${report.category}: ${report.status}`,
             })
               .addTo(map)
-              .bindPopup(popup(report, demo));
+              .bindPopup(() => popup(report, demo));
           });
           if (reports.length > 1) {
             map.fitBounds(reports.map(report => [report.lat, report.lng] as [number, number]), {
