@@ -1,13 +1,14 @@
-# API Blitz project guidance
+# Civic Issue Reporter guidance
 
-This is an event starter. Five APIs will be supplied; the team intends to use three. The API list and detailed rules are still unknown. Do not invent real providers, credentials, judging criteria, integrations or solution claims.
+Implement and maintain the user-supplied civic issue reporter plan. Read PRODUCT.md, DESIGN.md and docs/SETUP.md before changes.
 
-- Read PRODUCT.md, DESIGN.md and docs/EVENT-PLAYBOOK.md before implementing the event solution.
-- Preserve plain HTML/CSS/JavaScript unless the user requests a framework change.
-- For UI work, use the installed Impeccable and UI/UX Pro Max skills when available; inherit the existing visual system.
-- For API integration, follow docs/API-CONNECTIONS.md and the actual provider's official documentation. Keep one adapter per API and business logic in lib/solution.mjs.
-- Only public/ ships as static files. Keep credentials and provider requests server-side. Never inspect, print or commit secret values.
-- Mock mode must be visible. Never replace a failed live API with a mock without explicit user direction and clear UI labeling.
-- Confirm the official exactly-three/at-least-three rule when it becomes available.
-- Run npm test and npm run check after logic changes. Verify desktop/mobile layouts and API states after UI changes.
-- The Downloads checkout's Git remote and Keychain helper are already configured. Push normal commits to main for Vercel deployment; do not upload files through the browser.
+- Stack: Next.js App Router, TypeScript, Tailwind, shadcn-style components, Supabase, Cloudinary, DiceBear. The explicit plan supersedes the old plain-JavaScript/blank-starter constraints.
+- Core APIs: Cloudinary, DiceBear, Picsum. LoremFlickr is seed-only. Google Maps and Gemini remain optional and have manual/fallback paths.
+- Preserve a simple white UI. Use installed Impeccable/UI/UX Pro Max skills when relevant, inheriting DESIGN.md.
+- Never print, commit or expose secret environment values. .env.local is ignored; .env.example contains names and blank placeholders only.
+- Every mutation authenticates on the server. Every authority route checks the Google email allowlist. Public DTOs must omit raw user IDs and all acting admin IDs, emails and names.
+- Audit logs, authority notes, rate-limit state and official emails have no anon/authenticated grants. Direct client reads and writes are denied; use server routes so moderation/upload validation cannot be bypassed.
+- All report images use authenticated Cloudinary assets and signed, face-blurred delivery. Never silently serve unblurred originals.
+- Resolved status requires photo evidence in both app/database validation. Claim and status/audit writes are atomic.
+- Run npm test, npm run check and npm run build for meaningful logic changes. Check responsive layouts and credential-free setup states after UI work.
+- Use Git push to main to deploy through the existing GitHub/Vercel connection. Do not browser-upload source or change unrelated credentials/settings.
