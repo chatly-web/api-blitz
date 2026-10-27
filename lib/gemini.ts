@@ -6,7 +6,7 @@ const moderationSchema = z.object({ blocked: z.boolean(), reason: z.string().max
 const analysisSchema = z.object({ category: z.enum(categories), severity: z.enum(['low','medium','high']), description: z.string().max(2000) });
 async function generate(parts: unknown[]) {
   if (!process.env.GEMINI_API_KEY) throw new Error('Gemini is not configured');
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const model = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
   const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': process.env.GEMINI_API_KEY },
     body: JSON.stringify({ contents: [{ role: 'user', parts }], generationConfig: { responseMimeType: 'application/json', temperature: 0.1 } }),

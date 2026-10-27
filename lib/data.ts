@@ -3,10 +3,11 @@ import { serviceClient } from '@/lib/supabase/service';
 import type { Comment, Identity } from '@/lib/types';
 import { publicIdentity, publicReport, publicComment } from '@/lib/public-dto';
 const reportColumns = 'id,category,description,lat,lng,ward,status,claimed,before_public_id,after_public_id,public_note,score,created_at,author_id,profiles!reports_author_id_fkey(handle,avatar_seed)';
-export async function getReports(options: { authorId?: string; status?: string; category?: string; ward?: string; sort?: string } = {}) {
+export async function getReports(options: { authorId?: string; activeOnly?: boolean; status?: string; category?: string; ward?: string; sort?: string } = {}) {
   const db = serviceClient();
   let query = db.from('reports').select(reportColumns);
   if (options.authorId) query = query.eq('author_id', options.authorId);
+  if (options.activeOnly) query = query.neq('status', 'resolved');
   if (options.status) query = query.eq('status', options.status);
   if (options.category) query = query.eq('category', options.category);
   if (options.ward) query = query.ilike('ward', `%${options.ward.replace(/[%_]/g, '')}%`);

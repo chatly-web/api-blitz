@@ -21,3 +21,6 @@ A simple header holds the issue map, my reports and authority navigation. Pages 
 ## Behavior and accessibility
 
 Native labels, keyboard focus, live status/error messages, minimum 44px primary controls, a skip link, reduced-motion support, map-accessible report links, editable coordinates and a keyboard-controlled comparison slider. Google Maps is optional; manual coordinates and OpenStreetMap remain available. Preview samples are prominently labeled read-only. Admin routes return 404 without authority authorization.
+
+## Queue and loading refinement
+Authority defaults to active reports, with resolved reports retained under explicit status filters. My Reports and the map provide status filters. Shared route skeletons preserve row rhythm while loading; motion respects reduced-motion preferences. Queue actions and statuses stack at tablet/mobile widths.

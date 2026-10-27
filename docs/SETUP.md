@@ -16,7 +16,7 @@ Use Node.js 22 or newer. Run `npm ci`. `.env.local` is ignored by Git. A blank l
 | CLOUDINARY_UPLOAD_PRESET | Cloudinary signed upload preset | Server configuration |
 | NEXT_PUBLIC_GEOAPIFY_KEY | Geoapify Places API & styled map tiles | Public; optional (OpenStreetMap fallback) |
 | GEMINI_API_KEY | Google AI Studio | Server secret; optional |
-| GEMINI_MODEL | An available Google AI model | Server configuration; default gemini-2.5-flash |
+| GEMINI_MODEL | An available Google AI model | Server configuration; default gemini-3.1-flash-lite |
 | NEXT_PUBLIC_SITE_URL | Your deployed origin, no trailing slash | Public |
 | SEED_AUTHOR_ID | An existing Google test user's Supabase Auth ID | Seed-only |
 

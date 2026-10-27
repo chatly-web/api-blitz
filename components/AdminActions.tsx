@@ -25,7 +25,7 @@ export function AdminActions({ report,canHandle }: { report: Report; canHandle: 
     event.preventDefault();
     if (photoBusy || busy) return;
     setBusy(true); setMessage(''); setSaved(false);
-    try { await postJson('/api/admin/update',{ reportId: report.id,status,publicNote,internalNote,afterPhoto: photo || undefined }); setInternalNote(''); setSaved(true); setMessage('Report updated. The public view shows Ward Authority only.'); router.refresh(); }
+    try { await postJson('/api/admin/update',{ reportId: report.id,status,publicNote,internalNote,afterPhoto: photo || undefined }); setInternalNote(''); setSaved(true); setMessage('Report updated. The public view shows Ward Authority only.'); if (status === 'resolved') { router.push('/admin'); } router.refresh(); }
     catch (error) { setMessage(errorMessage(error)); } finally { setBusy(false); }
   }
   if (!canHandle) return <div className="admin-form"><h2>Handle this report</h2><p className="muted small">{report.claimed ? 'This report has already been claimed by another authority member. Their identity is not shared.' : 'Claim the report before making changes. Claiming is atomic, so only one authority member can take it.'}</p><ClaimButton reportId={report.id} claimed={report.claimed} /></div>;

@@ -1,1 +1,2 @@
-export default function Loading() { return <div className="loading" role="status">Loading Civic…</div>; }
+import { PageSkeleton } from '@/components/PageSkeleton';
+export default function Loading() { return <PageSkeleton />; }
