@@ -85,3 +85,13 @@ This uploads Picsum/LoremFlickr sample images to authenticated Cloudinary storag
 - https://cloudinary.com/documentation/upload_images
 - https://cloudinary.com/documentation/response_signatures
 - https://ai.google.dev/gemini-api/docs
+
+## Language selector and Groq report assistant
+
+- `GOOGLE_TRANSLATE_API_KEY`: enable Google Cloud Translation Basic v2 in your Google Cloud project. Restrict this server key to the Translation API and set quotas/budget alerts in your console. The key never reaches the browser. The language selector translates a fixed catalog of interface labels; citizen report bodies, names and private notes are never sent for translation. English remains available on failure. Machine translations are not a substitute for reviewed accessibility/localization.
+- `GROQ_API_KEY`: create a key at https://console.groq.com/keys using your chosen plan.
+- `GROQ_MODEL`: copy the exact model ID available under your account's limits at https://console.groq.com/settings/limits. The template selects `openai/gpt-oss-20b`, listed on Groq’s free-plan limits. You may replace it with another available model; no paid tier is enabled.
+
+The assistant sends the messages typed into its panel to Groq after the user presses Send. It receives no account identity, existing reports, photos, private notes or coordinates from the application. It can explain workflows and prepare category/description/ward drafts. Review draft transfers a validated draft to the normal report form using sessionStorage, expires after 30 minutes and requires photo upload, exact location and explicit Submit report. The assistant has no write tools or authority actions. Requests require Google authentication, same-origin checks and a persistent per-user limit of eight requests per minute. Chat history is kept in component memory only.
+
+Add these three optional variables to Vercel as well as `.env.local` and redeploy. Missing keys show recoverable setup messages; normal reporting remains usable. Groq free-plan limits depend on the selected model/account. Google Translation is a separate service with its own billing and quotas.

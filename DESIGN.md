@@ -24,3 +24,6 @@ Native labels, keyboard focus, live status/error messages, minimum 44px primary 
 
 ## Queue and loading refinement
 Authority defaults to active reports, with resolved reports retained under explicit status filters. My Reports and the map provide status filters. Shared route skeletons preserve row rhythm while loading; motion respects reduced-motion preferences. Queue actions and statuses stack at tablet/mobile widths.
+
+## Language and assistance
+Compact native language selector with native language names, persistent choice, HTML lang/dir updates, loading and failure feedback. Static labels use React-owned translation components, never DOM replacement. A nonmodal assistant opens from a fixed, labeled control with Escape-to-close and restored focus. Drafts are visually separate from submitted reports. Compact spacing preserves 44px primary controls and clear field labels.

@@ -1,4 +1,5 @@
 'use client';
+import { T } from '@/components/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { LocateFixed, MapPin } from 'lucide-react';
 import { MapView } from '@/components/MapView';
