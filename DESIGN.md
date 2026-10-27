@@ -36,3 +36,6 @@ Timeline uses actual recorded submission/claim/status milestones and omits inter
 
 ## Automatic report intake
 No separate photo-suggestion or current-location buttons. Successful photo uploads automatically request AI category/description suggestions. Device location is requested once on form opening with normal browser permission; coordinates and neighborhood stay editable. Loading/status messages explain progress and failure. Picsum imagery occupies the upload/photo area until real delivery is ready, is labeled sample preview, and never enters the upload payload. A late AI/GPS response must preserve newer citizen edits.
+
+## Category previews and delivery transition
+Upload previews use two curated, licensed local photos per category, with 2.5px CSS blur and a refresh action that stays inside that category. The current sample is frozen when upload starts and remains behind the ring while the upload and actual image delivery complete. Signed, face-blurred actual evidence crossfades over that same sample; no random placeholder is substituted midway. Delivery errors stop the ring and offer retry. AI retry appears only after automatic analysis fails. Source and image-license credits are available at /photo-credits.

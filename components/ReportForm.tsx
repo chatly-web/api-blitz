@@ -26,6 +26,8 @@ export function ReportForm({identity}:{identity?:Identity}={}) {
   const [photo,setPhoto] = useState<UploadReceipt | null>(null); const [category,setCategory] = useState<Category>('Pothole');
   const [description,setDescription] = useState(''); const [ward,setWard] = useState('');
   const [analysisCompleteKey,setAnalysisCompleteKey]=useState('');
+  const [analysisFailed,setAnalysisFailed]=useState(false);
+  const [analysisAttempt,setAnalysisAttempt]=useState(0);
   const photoKey=photo?`${photo.publicId}:${photo.version}`:'';
   const analysisPending=Boolean(photoKey&&analysisCompleteKey!==photoKey);
   fields.current={category,description};
@@ -61,23 +63,23 @@ export function ReportForm({identity}:{identity?:Identity}={}) {
     }catch{ /* A blocked browser store never prevents manual reporting. */ }
   }, [searchParams]);
   useEffect(() => {
-    if(!photo || photoBusy){setAnalyzing(false);return;}
+    if(!photo || photoBusy){setAnalyzing(false);if(!photo)setAnalysisFailed(false);return;}
     if(lastAnalyzed.current===photoKey)return;
     const controller=new AbortController();let cancelled=false;
     const started={...revisions.current};
-    setAnalyzing(true);setSuggestion('Your face-blurred photo is being analyzed automatically…');
+    setAnalysisFailed(false);setAnalyzing(true);setSuggestion('Your face-blurred photo is being analyzed automatically…');
     void postJson<SuggestedDetails>('/api/analyze-photo',{photo},'POST',controller.signal).then(result=>{
       if(cancelled)return;
       const merged=mergePhotoSuggestions(fields.current,started,revisions.current,result);
       fields.current=merged;setCategory(merged.category);setDescription(merged.description);
       setSuggestion('Photo details filled automatically. Review and edit them before submitting.');
     }).catch(error=>{
-      if(!cancelled)setSuggestion(`${errorMessage(error)} Your photo is kept; enter or edit the details manually.`);
+      if(!cancelled){setAnalysisFailed(true);setSuggestion(`${errorMessage(error)} Your photo is kept; retry AI suggestions or fill in the details manually.`);}
     }).finally(()=>{
       if(!cancelled){lastAnalyzed.current=photoKey;setAnalysisCompleteKey(photoKey);setAnalyzing(false);}
     });
     return ()=>{cancelled=true;controller.abort();};
-  }, [photoKey,photoBusy]);
+  }, [photoKey,photoBusy,analysisAttempt]);
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (busy || photoBusy || analyzing || analysisPending) return;
@@ -103,7 +105,7 @@ export function ReportForm({identity}:{identity?:Identity}={}) {
       <h2><T>Photo evidence</T></h2>
       <p className="muted small"><T>Document the issue as it is now.</T></p>
       <PhotoUpload purpose="before" category={category} value={photo} onChange={setPhoto} onBusyChange={setPhotoBusy} disabled={busy} />
-      <div className="auto-fill-status" role="status" aria-live="polite">{analyzing||analysisPending?<LoaderCircle size={16} className="spinner"/>:<Sparkles size={16}/>}<p>{suggestion || 'Upload a photo to fill the category and description automatically. Your location is requested separately.'}</p></div>
+      <div className="auto-fill-status" role="status" aria-live="polite">{analyzing||analysisPending?<LoaderCircle size={16} className="spinner"/>:<Sparkles size={16}/>}<p>{suggestion || 'Upload a photo to fill the category and description automatically. Your location is requested separately.'}</p></div>{analysisFailed&&photo&&!photoBusy&&<Button type="button" variant="outline" disabled={analyzing||busy} onClick={()=>{lastAnalyzed.current='';setAnalysisFailed(false);setAnalysisCompleteKey('');setAnalysisAttempt(value=>value+1);}}><Sparkles size={16}/>Retry AI suggestions</Button>}
     </section>
     <section className="form-section report-details-section">
       <h2><T>Issue details</T></h2>

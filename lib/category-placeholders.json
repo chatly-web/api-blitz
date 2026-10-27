@@ -1,0 +1,134 @@
+{
+  "Pothole": [
+    {
+      "src": "/placeholders/pothole-1.webp",
+      "title": "Pothole in Villeray, Montréal.jpg",
+      "author": "Miguel Tremblay",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Pothole_in_Villeray,_Montr%C3%A9al.jpg",
+      "bytes": 118972,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    },
+    {
+      "src": "/placeholders/pothole-2.webp",
+      "title": "Pothole on Huntington Creek Road.JPG",
+      "author": "Jakec",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pothole_on_Huntington_Creek_Road.JPG",
+      "bytes": 163166,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    }
+  ],
+  "Garbage": [
+    {
+      "src": "/placeholders/garbage-1.webp",
+      "title": "Garbage 1.jpg",
+      "author": "Gaurav Dhwaj Khadka",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Garbage_1.jpg",
+      "bytes": 91610,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    },
+    {
+      "src": "/placeholders/garbage-2.webp",
+      "title": "Garbage Disposal Hyderabad 2005.jpg",
+      "author": "melgupta",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Garbage_Disposal_Hyderabad_2005.jpg",
+      "bytes": 91676,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    }
+  ],
+  "Streetlight": [
+    {
+      "src": "/placeholders/streetlight-1.webp",
+      "title": "Réverbère - 20150802 17h53 (10751).jpg",
+      "author": "Another one of my pictures: This photograph was taken by Medium69 (William Crochot) and released under the license stated below. You are free to use it for any purpose as long as you credit the author (William Crochot), the Source (Wikimedia Commons) and the license (CC-BY-SA 4.0) in close relation to the image. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source RAW. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract.",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:R%C3%A9verb%C3%A8re_-_20150802_17h53_(10751).jpg",
+      "bytes": 37946,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    },
+    {
+      "src": "/placeholders/streetlight-2.webp",
+      "title": "Mere Lane lamp standard 1.jpg",
+      "author": "Rodhullandemu",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mere_Lane_lamp_standard_1.jpg",
+      "bytes": 72806,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    }
+  ],
+  "Water leak": [
+    {
+      "src": "/placeholders/water-leak-1.webp",
+      "title": "Leak in rusted pipe side view.jpg",
+      "author": "Shamrock Lee",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Leak_in_rusted_pipe_side_view.jpg",
+      "bytes": 28490,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    },
+    {
+      "src": "/placeholders/water-leak-2.webp",
+      "title": "Leak in rusted pipe bottom view.jpg",
+      "author": "Shamrock Lee",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Leak_in_rusted_pipe_bottom_view.jpg",
+      "bytes": 55676,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    }
+  ],
+  "Drainage": [
+    {
+      "src": "/placeholders/drainage-1.webp",
+      "title": "Drain grate.jpg",
+      "author": "Angie from Sawara, Chiba-ken, Japan",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Drain_grate.jpg",
+      "bytes": 50422,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    },
+    {
+      "src": "/placeholders/drainage-2.webp",
+      "title": "Tasman Grate, Cycle Friendly Drain Grate Type.jpg",
+      "author": "Ingolfson",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Tasman_Grate,_Cycle_Friendly_Drain_Grate_Type.jpg",
+      "bytes": 42206,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    }
+  ],
+  "Other": [
+    {
+      "src": "/placeholders/other-1.webp",
+      "title": "San Fernando Valley sidewalk vs. tree 2015-05-02.jpg",
+      "author": "Junkyardsparkle",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:San_Fernando_Valley_sidewalk_vs._tree_2015-05-02.jpg",
+      "bytes": 121534,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    },
+    {
+      "src": "/placeholders/other-2.webp",
+      "title": "031 Sidewalk environmental damage - dangerous sidewalk with concrete paving tiles, Bytom, Poland.jpg",
+      "author": "Marek Ślusarczyk (Tupungato) Photo portfolio",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:031_Sidewalk_environmental_damage_-_dangerous_sidewalk_with_concrete_paving_tiles,_Bytom,_Poland.jpg",
+      "bytes": 128006,
+      "modifications": "Resized and re-encoded as WebP; displayed cropped and slightly blurred as a sample preview."
+    }
+  ]
+}

@@ -23,7 +23,7 @@ const config: NextConfig = {
       { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
       { key: 'X-Frame-Options', value: 'DENY' },
       { key: 'Permissions-Policy', value: 'camera=(self), geolocation=(self), microphone=()' },
-    ] }];
+    ] },{source:'/placeholders/:path*',headers:[{key:'Cache-Control',value:'public, max-age=86400'}]}];
   },
 };
 export default config;
