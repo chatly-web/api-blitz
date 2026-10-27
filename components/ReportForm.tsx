@@ -3,7 +3,7 @@ import { T, useLanguage } from '@/components/LanguageProvider';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowRight, Sparkles, ShieldCheck, CopyCheck } from 'lucide-react';
+import { ArrowRight, Sparkles, ShieldCheck, CopyCheck, Camera, FileText, MapPin, Check } from 'lucide-react';
 import { categories, type Category, type UploadReceipt } from '@/lib/types';
 import { draftSchema, DRAFT_KEY } from '@/lib/assistant-contract';
 import { postJson, errorMessage } from '@/lib/client-api';
@@ -73,13 +73,13 @@ export function ReportForm() {
       setError(errorMessage(error)); setBusy(false);
     }
   }
-  return <form className="report-form" onSubmit={submit}><div className="report-step-guide" aria-label="Report checklist"><span>Photo evidence</span><span>Issue details</span><span>Exact location</span><span><T>Review & submit</T></span></div><fieldset disabled={busy} style={{ border: 0, padding: 0, margin: 0 }}>
-    <section className="form-field" style={{ marginBottom: 24 }}>
+  return <form className="report-form" onSubmit={submit}><div className="report-step-guide" aria-label="Report checklist"><span data-complete={Boolean(photo)}>{photo?<Check size={15}/>:<Camera size={15}/>}<T>Photo evidence</T></span><span data-complete={description.trim().length>=10}>{description.trim().length>=10?<Check size={15}/>:<FileText size={15}/>}<T>Issue details</T></span><span data-complete={Boolean(location)}>{location?<Check size={15}/>:<MapPin size={15}/>}<T>Exact location</T></span></div><fieldset disabled={busy} style={{ border: 0, padding: 0, margin: 0 }}>
+    <section className="form-field report-category-field">
       <label className="field-label" htmlFor="category" style={{ fontSize: 16 }}><T>Issue category</T></label>
       <select id="category" className="input" value={category} onChange={event => setCategory(event.target.value as Category)}>{categories.map(value => <option key={value} value={value}><T>{value}</T></option>)}</select>
       <p className="field-help"><T>Select the issue category. The photo field below automatically adapts its placeholder to this category.</T></p>
     </section>
-    <section className="form-section" style={{ marginTop: 0, paddingTop: 20 }}>
+    <section className="form-section report-photo-section">
       <h2><T>Photo evidence</T></h2>
       <p className="muted small"><T>Document the issue as it is now.</T></p>
       <PhotoUpload purpose="before" category={category} value={photo} onChange={setPhoto} onBusyChange={setPhotoBusy} disabled={busy} />
@@ -88,12 +88,12 @@ export function ReportForm() {
         <p className="field-help" role="status">{suggestion || 'Optional. AI will analyze your photo and automatically populate the description.'}</p>
       </div>
     </section>
-    <section className="form-section">
+    <section className="form-section report-details-section">
       <h2><T>Issue details</T></h2>
       <div className="form-field"><label className="field-label" htmlFor="description"><T>What needs attention?</T></label><Textarea id="description" value={description} onChange={event => setDescription(event.target.value)} required minLength={10} maxLength={2000} placeholder={t("Describe what you can see and how it affects this public space.")} /><p className="field-help"><T>10–2,000 characters. Don’t include names, contact details or personal accusations.</T></p></div>
       <div className="form-field"><label className="field-label" htmlFor="ward"><T>Ward or neighborhood</T> <small>(<T>Optional</T>)</small></label><Input id="ward" value={ward} onChange={event => setWard(event.target.value)} maxLength={100} placeholder={t("e.g. Central ward")} /></div>
     </section>
-    <section className="form-section">
+    <section className="form-section report-location-section">
       <h2><T>Exact location</T></h2>
       <LocationPicker value={location} onChange={setLocation} onPlaceResolved={place => { if (!ward && place.neighborhood) setWard(place.neighborhood); }} />
       {nearby.length > 0 && <div className="duplicate-list"><h3><CopyCheck size={16} style={{ display: 'inline', marginRight: 6 }} />Similar reports within 30 meters</h3><p className="small">You may be able to add a comment to an existing issue.</p>{nearby.map(item => <Link href={`/r/${item.id}`} key={item.id}>{item.description.slice(0,100)} · {Math.round(item.distance_m)} m away →</Link>)}<label><input type="checkbox" checked={acknowledged} onChange={event => setAcknowledged(event.target.checked)} />I checked these reports. This is a separate issue.</label></div>}

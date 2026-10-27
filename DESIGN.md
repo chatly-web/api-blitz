@@ -27,3 +27,6 @@ Authority defaults to active reports, with resolved reports retained under expli
 
 ## Language and assistance
 Compact native language selector with native language names, persistent choice and HTML lang/dir updates. Translations are bundled and work without an API connection. Static labels use React-owned translation components, never DOM replacement. A nonmodal assistant opens from a fixed, labeled control with Escape-to-close and restored focus. Drafts are visually separate from submitted reports. Compact spacing preserves 44px primary controls and clear field labels.
+
+## Professional interface refinement
+Use a 32px page heading, 14–16px working text and consistent 44px primary controls. Navigation highlights the current area. Map filters, results count, map and status key share one workspace boundary; category and status filters compose. The report editor pairs photo evidence with details on desktop, with full-width location and a single-column mobile layout. Checklist indicators reflect actual form completion. Keep the white/green palette, native multilingual typography, restrained shadows and reduced-motion support. On mobile the repeated header report action is hidden; report creation remains available from map/empty states and assistant links.
