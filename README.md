@@ -1,6 +1,6 @@
 # API Blitz — event starter
 
-**Current homepage:** intentionally blank and white, as requested. The prepared API modules and UI component files remain available for later; the workspace features described below are not currently displayed.
+**Current homepage:** a plain white page with a Hello World heading, as requested. The prepared API modules and UI component files remain available for later; the workspace features described below are not currently displayed.
 
 The event provides five APIs; the team must use three to build a useful solution. API names, schemas, authentication and detailed rules are not announced yet. This repository prepares the structure without inventing those details.
 

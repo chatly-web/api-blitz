@@ -1,7 +1,5 @@
 # API Blitz — current page
 
-The user explicitly requested a completely blank white page.
+The homepage is a plain white page with a single “Hello World” heading. It uses native browser typography and loads no scripts, external fonts or stylesheets. Keep this simple appearance until the user requests more content.
 
-The public entry page contains no visible content, controls, external stylesheets, fonts or scripts. Its background is white and its browser title is API Blitz. Preserve this blank surface until the user requests content.
-
-The event adapters, server routes, reusable UI source files and preparation documentation remain available for later. The retained UI assets are not loaded by the current page; their former cream/olive styling is not the active design.
+The prepared API modules and reusable UI source remain available for later use.

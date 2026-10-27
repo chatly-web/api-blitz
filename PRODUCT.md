@@ -16,4 +16,4 @@ Five placeholder adapters, exactly-three selection based on the user's current d
 Name: API Blitz. Preserve the current simple visual system during preparation.
 
 ## Current visible page
-The user requested a completely blank white page. The prepared API modules and UI source remain in the project for later use, but the homepage does not load the workspace.
+The user requested a plain white page, now with a Hello World heading. The prepared API modules and UI source remain in the project for later use, but the homepage does not load the workspace.
