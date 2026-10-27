@@ -14,3 +14,6 @@ GitHub repository chatly-web/api-blitz, local project in Downloads/api-blitz, ho
 Five placeholder adapters, exactly-three selection based on the user's current description, a problem brief, local save and JSON export, server-side runner, explicit mock results, failure and timeout handling. Actual providers, rules, judging criteria, domain-specific workflow and finished solution remain unknown. Official rules may change the selection constraint.
 ## Brand Commitments
 Name: API Blitz. Preserve the current simple visual system during preparation.
+
+## Current visible page
+The user requested a completely blank white page. The prepared API modules and UI source remain in the project for later use, but the homepage does not load the workspace.
