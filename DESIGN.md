@@ -39,3 +39,6 @@ No separate photo-suggestion or current-location buttons. Successful photo uploa
 
 ## Category previews and delivery transition
 Upload previews use two curated, licensed local photos per category, with 2.5px CSS blur and a refresh action that stays inside that category. The current sample is frozen when upload starts and remains behind the ring while the upload and actual image delivery complete. Signed, face-blurred actual evidence crossfades over that same sample; no random placeholder is substituted midway. Delivery errors stop the ring and offer retry. AI retry appears only after automatic analysis fails. Source and image-license credits are available at /photo-credits.
+
+## Layout-matched route loading
+Route skeletons use distinct map, report editor, report detail, personal reports/persona, authority queue/workspace and outcomes layouts. Reuse live page grid, filter, queue and sidebar containers; keep header/footer placeholders on routes whose shell loads with the page, and omit them beneath the existing authority layout. Neutral pulse placeholders have no interactive controls, announce one loading status, respect reduced motion, and constrain fixed-width bars inside mobile grids.
