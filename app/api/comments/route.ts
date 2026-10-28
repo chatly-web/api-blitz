@@ -11,6 +11,7 @@ export async function POST(request: Request) {
     const input = await readJson(request, commentSchema);
     await rateLimit(viewer.id, 'comment', 5);
     const moderation = await moderateComment(input.body);
+    if (moderation.reviewRequired) throw new ApiError(503, 'Comment moderation is temporarily unavailable. Your comment has not been posted.', 'AI_UNAVAILABLE');
     if (moderation.blocked) throw new ApiError(422, moderation.reason);
     const { error } = await serviceClient().from('comments').insert({ report_id: input.reportId, parent_id: input.parentId || null, author_id: viewer.id, body: input.body, review_required: moderation.reviewRequired });
     databaseError(error);

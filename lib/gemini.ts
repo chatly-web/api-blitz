@@ -1,5 +1,6 @@
 import 'server-only';
 import { z } from 'zod';
+import { ApiError } from '@/lib/api';
 import { categories, type Category } from '@/lib/types';
 import { cloudinaryUrl } from '@/lib/cloudinary';
 const moderationSchema = z.object({ blocked: z.boolean(), reason: z.string().max(300) });
@@ -80,7 +81,7 @@ export async function verifyResolutionEvidence(
   }
 
   if (!process.env.GEMINI_API_KEY) {
-    return { matches: true, reason: 'AI resolution verification skipped (Gemini unconfigured).' };
+    throw new ApiError(503, 'Resolution analysis is not configured. Your photo is kept.', 'AI_UNAVAILABLE');
   }
 
   try {
@@ -96,7 +97,7 @@ export async function verifyResolutionEvidence(
     ]);
 
     if (!beforeRes.ok || !afterRes.ok) {
-      return { matches: true, reason: 'Photos could not be read from storage for comparison.' };
+      throw new Error('Photos unavailable for comparison');
     }
 
     const [beforeBuf, afterBuf] = await Promise.all([
@@ -155,8 +156,8 @@ Reply strictly in JSON format:
       return { matches: decision.accepted, reason: decision.message };
     }
 
-    return { matches: true, reason: 'Verification response format unparseable; proceeding.' };
+    throw new Error('Invalid AI response');
   } catch {
-    return { matches: true, reason: 'Automated match verification unavailable; manual review allowed.' };
+    throw new ApiError(503, 'Resolution analysis is temporarily unavailable. Your photo is kept.', 'AI_UNAVAILABLE');
   }
 }

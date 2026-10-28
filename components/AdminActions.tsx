@@ -27,6 +27,8 @@ export function AdminActions({ report,canHandle }: { report: Report; canHandle: 
   const [photo,setPhoto] = useState<UploadReceipt | null>(null);
   const [photoBusy,setPhotoBusy] = useState(false);
   const [verifying,setVerifying] = useState(false);
+  const [verificationAttempt,setVerificationAttempt] = useState(0);
+  const [verificationError,setVerificationError] = useState('');
   const [verificationResult,setVerificationResult] = useState<{ matches: boolean; reason: string } | null>(null);
   const [busy,setBusy] = useState(false);
   const [message,setMessage] = useState('');
@@ -40,22 +42,25 @@ export function AdminActions({ report,canHandle }: { report: Report; canHandle: 
       return;
     }
     let cancelled = false;
+    const controller = new AbortController();
     setVerifying(true);
+    setVerificationError('');
+    setVerificationResult(null);
     postJson<{ matches: boolean; reason: string }>('/api/admin/verify-resolution', {
       reportId: report.id,
       afterPhoto: photo,
-    })
+    }, 'POST', controller.signal)
       .then(res => {
         if (!cancelled) setVerificationResult(res);
       })
       .catch(err => {
-        if (!cancelled) setVerificationResult({ matches: true, reason: errorMessage(err) });
+        if (!cancelled) setVerificationError(errorMessage(err));
       })
       .finally(() => {
         if (!cancelled) setVerifying(false);
       });
-    return () => { cancelled = true; };
-  }, [photo, report.id]);
+    return () => { cancelled = true; controller.abort(); };
+  }, [photo, report.id, verificationAttempt]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -110,6 +115,7 @@ export function AdminActions({ report,canHandle }: { report: Report; canHandle: 
               <span>Auditing resolution proof against citizen&apos;s original report…</span>
             </div>
           )}
+          {verificationError && !verifying && <div role="status"><p className="form-error">{verificationError}</p><Button type="button" variant="outline" onClick={() => setVerificationAttempt(value => value + 1)}>Retry AI verification</Button></div>}
           {verificationResult && !verifying && (
             verificationResult.matches ? (
               <div className="verification-status verified" role="status">

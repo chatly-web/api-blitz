@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { currentViewer } from '@/lib/auth';
 import { hasBackend } from '@/lib/env';
-export class ApiError extends Error { constructor(public status: number, message: string) { super(message); } }
+export class ApiError extends Error { constructor(public status: number, message: string, public code?: string) { super(message); } }
 export function assertSameOrigin(request: Request) {
   const origin = request.headers.get('origin');
   const expected = process.env.NEXT_PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || process.env.SITE_URL || new URL(request.url).origin;
@@ -28,7 +28,7 @@ export async function readJson<T>(request: Request, schema: z.ZodType<T>): Promi
   return result.data;
 }
 export function apiError(error: unknown) {
-  if (error instanceof ApiError) return NextResponse.json({ error: error.message }, { status: error.status });
+  if (error instanceof ApiError) return NextResponse.json({ error: error.message, ...(error.code ? { code: error.code } : {}) }, { status: error.status });
   return NextResponse.json({ error: 'The request could not be completed. Please try again.' }, { status: 500 });
 }
 export function databaseError(error: { message: string } | null) {
