@@ -1,9 +1,7 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { Camera, MapPin, ShieldCheck, CircleCheck, Circle, EyeOff, Fingerprint, ArrowRight, Sparkles } from 'lucide-react';
+import { Camera, MapPin, ShieldCheck, CircleCheck, Circle, EyeOff, Fingerprint } from 'lucide-react';
 import { AppShell } from '@/components/AppShell';
 import { GoogleSignIn } from '@/components/GoogleSignIn';
-import { Button } from '@/components/ui/button';
 import { authenticatedUser } from '@/lib/auth';
 import { hasBackend, setupItems } from '@/lib/env';
 export const dynamic = 'force-dynamic';
@@ -23,20 +21,6 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
           </div>
         </section>
         <section className="login-panel">
-          <div style={{ marginBottom: '1.25rem', padding: '1rem', background: '#f0fdf4', border: '1.5px solid #86efac', borderRadius: '10px', textAlign: 'center' }}>
-            <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#15803d', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}>
-              <Sparkles size={16} /> Explore Live Demo & API Sandbox
-            </p>
-            <p style={{ margin: '0 0 0.75rem', fontSize: '0.8rem', color: '#4b5563' }}>
-              Test DiceBear Avatar Studio, Picsum Repair Sandbox, and Cloudinary Evidence directly without signing in.
-            </p>
-            <Button asChild size="default" style={{ width: '100%' }}>
-              <Link href="/demo">
-                Open Live Interactive Demo <ArrowRight size={15} style={{ marginLeft: 6 }} />
-              </Link>
-            </Button>
-          </div>
-
           <h2>Your city. Your voice.</h2>
           <p>Sign in to report an issue, support a report, or add a helpful update.</p>
           <GoogleSignIn enabled={ready} />
